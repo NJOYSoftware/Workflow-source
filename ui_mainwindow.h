@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.9.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -15,7 +15,6 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -42,15 +41,7 @@ public:
     QFrame *frame;
     QLabel *lblProjectTitle;
     QLabel *lblDepTree;
-    QGroupBox *gbxCurrentNode;
-    QGraphicsView *grvCurrentTask;
     QFrame *line;
-    QGroupBox *gbxCurrentText;
-    QLabel *lblCurrentTitle;
-    QTextEdit *tedCurrentText;
-    QPushButton *btnModify;
-    QPushButton *btnComplete;
-    QPushButton *btnAddChild;
     QLabel *lblChildren;
     QPushButton *btnPrevTask;
     QGraphicsView *grvChild1;
@@ -61,6 +52,12 @@ public:
     QPushButton *btnPreviousPage;
     QPushButton *btnNextPage;
     QLabel *lblChildrenPage;
+    QPushButton *btnModify;
+    QPushButton *btnAddChild;
+    QPushButton *btnComplete;
+    QLabel *lblCurrentTitle;
+    QTextEdit *tedCurrentText;
+    QGraphicsView *grvCurrentTask;
     QMenuBar *menuBar;
     QMenu *menuMenu;
     QMenu *menuAbout;
@@ -117,67 +114,16 @@ public:
         QFont font1;
         font1.setPointSize(16);
         lblDepTree->setFont(font1);
-        gbxCurrentNode = new QGroupBox(centralWidget);
-        gbxCurrentNode->setObjectName(QStringLiteral("gbxCurrentNode"));
-        gbxCurrentNode->setGeometry(QRect(0, 110, 391, 261));
-        grvCurrentTask = new QGraphicsView(gbxCurrentNode);
-        grvCurrentTask->setObjectName(QStringLiteral("grvCurrentTask"));
-        grvCurrentTask->setGeometry(QRect(15, 20, 360, 216));
-        grvCurrentTask->setMouseTracking(false);
-        grvCurrentTask->setAcceptDrops(false);
-        grvCurrentTask->setAutoFillBackground(false);
-        grvCurrentTask->setFrameShape(QFrame::StyledPanel);
-        grvCurrentTask->setFrameShadow(QFrame::Plain);
-        grvCurrentTask->setLineWidth(1);
-        grvCurrentTask->setMidLineWidth(0);
-        grvCurrentTask->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        grvCurrentTask->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        QBrush brush(QColor(240, 240, 240, 255));
-        brush.setStyle(Qt::SolidPattern);
-        grvCurrentTask->setBackgroundBrush(brush);
-        grvCurrentTask->setInteractive(false);
         line = new QFrame(centralWidget);
         line->setObjectName(QStringLiteral("line"));
         line->setGeometry(QRect(380, 110, 20, 261));
         line->setFrameShape(QFrame::VLine);
         line->setFrameShadow(QFrame::Sunken);
-        gbxCurrentText = new QGroupBox(centralWidget);
-        gbxCurrentText->setObjectName(QStringLiteral("gbxCurrentText"));
-        gbxCurrentText->setGeometry(QRect(392, 110, 591, 261));
-        lblCurrentTitle = new QLabel(gbxCurrentText);
-        lblCurrentTitle->setObjectName(QStringLiteral("lblCurrentTitle"));
-        lblCurrentTitle->setGeometry(QRect(10, 10, 571, 31));
-        QFont font2;
-        font2.setPointSize(18);
-        lblCurrentTitle->setFont(font2);
-        lblCurrentTitle->setAlignment(Qt::AlignCenter);
-        tedCurrentText = new QTextEdit(gbxCurrentText);
-        tedCurrentText->setObjectName(QStringLiteral("tedCurrentText"));
-        tedCurrentText->setEnabled(true);
-        tedCurrentText->setGeometry(QRect(10, 50, 571, 161));
-        QFont font3;
-        font3.setPointSize(14);
-        tedCurrentText->setFont(font3);
-        tedCurrentText->viewport()->setProperty("cursor", QVariant(QCursor(Qt::IBeamCursor)));
-        tedCurrentText->setStyleSheet(QStringLiteral("background-color: rgb(240, 240, 240);"));
-        tedCurrentText->setFrameShape(QFrame::NoFrame);
-        tedCurrentText->setFrameShadow(QFrame::Plain);
-        tedCurrentText->setTextInteractionFlags(Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
-        btnModify = new QPushButton(gbxCurrentText);
-        btnModify->setObjectName(QStringLiteral("btnModify"));
-        btnModify->setEnabled(false);
-        btnModify->setGeometry(QRect(10, 220, 121, 31));
-        btnComplete = new QPushButton(gbxCurrentText);
-        btnComplete->setObjectName(QStringLiteral("btnComplete"));
-        btnComplete->setEnabled(false);
-        btnComplete->setGeometry(QRect(460, 220, 121, 31));
-        btnAddChild = new QPushButton(gbxCurrentText);
-        btnAddChild->setObjectName(QStringLiteral("btnAddChild"));
-        btnAddChild->setEnabled(false);
-        btnAddChild->setGeometry(QRect(230, 220, 141, 31));
         lblChildren = new QLabel(centralWidget);
         lblChildren->setObjectName(QStringLiteral("lblChildren"));
         lblChildren->setGeometry(QRect(390, 380, 211, 31));
+        QFont font2;
+        font2.setPointSize(18);
         lblChildren->setFont(font2);
         lblChildren->setAlignment(Qt::AlignCenter);
         btnPrevTask = new QPushButton(centralWidget);
@@ -195,6 +141,8 @@ public:
         grvChild1->setMidLineWidth(0);
         grvChild1->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         grvChild1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        QBrush brush(QColor(240, 240, 240, 255));
+        brush.setStyle(Qt::SolidPattern);
         grvChild1->setBackgroundBrush(brush);
         grvChild2 = new QGraphicsView(centralWidget);
         grvChild2->setObjectName(QStringLiteral("grvChild2"));
@@ -248,10 +196,53 @@ public:
         lblChildrenPage->setObjectName(QStringLiteral("lblChildrenPage"));
         lblChildrenPage->setGeometry(QRect(570, 380, 141, 31));
         lblChildrenPage->setFont(font1);
+        btnModify = new QPushButton(centralWidget);
+        btnModify->setObjectName(QStringLiteral("btnModify"));
+        btnModify->setEnabled(false);
+        btnModify->setGeometry(QRect(420, 330, 121, 31));
+        btnAddChild = new QPushButton(centralWidget);
+        btnAddChild->setObjectName(QStringLiteral("btnAddChild"));
+        btnAddChild->setEnabled(false);
+        btnAddChild->setGeometry(QRect(620, 330, 131, 31));
+        btnComplete = new QPushButton(centralWidget);
+        btnComplete->setObjectName(QStringLiteral("btnComplete"));
+        btnComplete->setEnabled(false);
+        btnComplete->setGeometry(QRect(830, 330, 121, 31));
+        lblCurrentTitle = new QLabel(centralWidget);
+        lblCurrentTitle->setObjectName(QStringLiteral("lblCurrentTitle"));
+        lblCurrentTitle->setGeometry(QRect(400, 120, 571, 31));
+        lblCurrentTitle->setFont(font2);
+        lblCurrentTitle->setAlignment(Qt::AlignCenter);
+        tedCurrentText = new QTextEdit(centralWidget);
+        tedCurrentText->setObjectName(QStringLiteral("tedCurrentText"));
+        tedCurrentText->setEnabled(true);
+        tedCurrentText->setGeometry(QRect(400, 160, 571, 161));
+        QFont font3;
+        font3.setPointSize(14);
+        tedCurrentText->setFont(font3);
+        tedCurrentText->viewport()->setProperty("cursor", QVariant(QCursor(Qt::IBeamCursor)));
+        tedCurrentText->setStyleSheet(QStringLiteral("background-color: rgb(240, 240, 240);"));
+        tedCurrentText->setFrameShape(QFrame::NoFrame);
+        tedCurrentText->setFrameShadow(QFrame::Plain);
+        tedCurrentText->setTextInteractionFlags(Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
+        grvCurrentTask = new QGraphicsView(centralWidget);
+        grvCurrentTask->setObjectName(QStringLiteral("grvCurrentTask"));
+        grvCurrentTask->setGeometry(QRect(10, 130, 360, 216));
+        grvCurrentTask->setMouseTracking(false);
+        grvCurrentTask->setAcceptDrops(false);
+        grvCurrentTask->setAutoFillBackground(false);
+        grvCurrentTask->setFrameShape(QFrame::StyledPanel);
+        grvCurrentTask->setFrameShadow(QFrame::Plain);
+        grvCurrentTask->setLineWidth(1);
+        grvCurrentTask->setMidLineWidth(0);
+        grvCurrentTask->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        grvCurrentTask->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        grvCurrentTask->setBackgroundBrush(brush);
+        grvCurrentTask->setInteractive(false);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 982, 27));
+        menuBar->setGeometry(QRect(0, 0, 982, 22));
         menuMenu = new QMenu(menuBar);
         menuMenu->setObjectName(QStringLiteral("menuMenu"));
         menuAbout = new QMenu(menuBar);
@@ -280,36 +271,34 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Workflow", 0));
-        actionLoad->setText(QApplication::translate("MainWindow", "Load", 0));
-        actionSave->setText(QApplication::translate("MainWindow", "Save", 0));
-        actionReport_Bug->setText(QApplication::translate("MainWindow", "Report Bug", 0));
-        actionNew_Project->setText(QApplication::translate("MainWindow", "New Project...", 0));
-        actionHelp->setText(QApplication::translate("MainWindow", "Help", 0));
-        actionModify_Project_Title->setText(QApplication::translate("MainWindow", "Modify Project Title", 0));
-        actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", 0));
-        actionAbout_Workflow->setText(QApplication::translate("MainWindow", "About Workflow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Workflow", Q_NULLPTR));
+        actionLoad->setText(QApplication::translate("MainWindow", "Load", Q_NULLPTR));
+        actionSave->setText(QApplication::translate("MainWindow", "Save", Q_NULLPTR));
+        actionReport_Bug->setText(QApplication::translate("MainWindow", "Report Bug", Q_NULLPTR));
+        actionNew_Project->setText(QApplication::translate("MainWindow", "New Project...", Q_NULLPTR));
+        actionHelp->setText(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
+        actionModify_Project_Title->setText(QApplication::translate("MainWindow", "Modify Project Title", Q_NULLPTR));
+        actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
+        actionAbout_Workflow->setText(QApplication::translate("MainWindow", "About Workflow", Q_NULLPTR));
         lblProjectTitle->setText(QString());
         lblDepTree->setText(QString());
-        gbxCurrentNode->setTitle(QString());
-        gbxCurrentText->setTitle(QString());
+        lblChildren->setText(QApplication::translate("MainWindow", "Sub Tasks", Q_NULLPTR));
+        btnPrevTask->setText(QApplication::translate("MainWindow", "Previous Task", Q_NULLPTR));
+        btnNewMaster->setText(QApplication::translate("MainWindow", "New Super Task", Q_NULLPTR));
+        btnPreviousPage->setText(QApplication::translate("MainWindow", "<", Q_NULLPTR));
+        btnNextPage->setText(QApplication::translate("MainWindow", ">", Q_NULLPTR));
+        lblChildrenPage->setText(QApplication::translate("MainWindow", "Page:", Q_NULLPTR));
+        btnModify->setText(QApplication::translate("MainWindow", "Modify Task", Q_NULLPTR));
+        btnAddChild->setText(QApplication::translate("MainWindow", "Add Sub Task", Q_NULLPTR));
+        btnComplete->setText(QApplication::translate("MainWindow", "Complete Task", Q_NULLPTR));
         lblCurrentTitle->setText(QString());
         tedCurrentText->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Noto Sans'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", 0));
-        btnModify->setText(QApplication::translate("MainWindow", "Modify Task", 0));
-        btnComplete->setText(QApplication::translate("MainWindow", "Complete Task", 0));
-        btnAddChild->setText(QApplication::translate("MainWindow", "Add Sub Task", 0));
-        lblChildren->setText(QApplication::translate("MainWindow", "Sub Tasks", 0));
-        btnPrevTask->setText(QApplication::translate("MainWindow", "Previous Task", 0));
-        btnNewMaster->setText(QApplication::translate("MainWindow", "New Super Task", 0));
-        btnPreviousPage->setText(QApplication::translate("MainWindow", "<", 0));
-        btnNextPage->setText(QApplication::translate("MainWindow", ">", 0));
-        lblChildrenPage->setText(QApplication::translate("MainWindow", "Page:", 0));
-        menuMenu->setTitle(QApplication::translate("MainWindow", "Menu", 0));
-        menuAbout->setTitle(QApplication::translate("MainWindow", "About", 0));
+"</style></head><body style=\" font-family:'Ubuntu'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", Q_NULLPTR));
+        menuMenu->setTitle(QApplication::translate("MainWindow", "Menu", Q_NULLPTR));
+        menuAbout->setTitle(QApplication::translate("MainWindow", "About", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'wikiwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.9.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -71,11 +71,11 @@ public:
 
     void retranslateUi(QWidget *WikiWindow)
     {
-        WikiWindow->setWindowTitle(QApplication::translate("WikiWindow", "Help", 0));
-        lblTitle->setText(QApplication::translate("WikiWindow", "Workflow Wiki", 0));
-        btnBack->setText(QApplication::translate("WikiWindow", "Back", 0));
-        btnForward->setText(QApplication::translate("WikiWindow", "Forward", 0));
-        btnReload->setText(QApplication::translate("WikiWindow", "Reload Page", 0));
+        WikiWindow->setWindowTitle(QApplication::translate("WikiWindow", "Help", Q_NULLPTR));
+        lblTitle->setText(QApplication::translate("WikiWindow", "Workflow Wiki", Q_NULLPTR));
+        btnBack->setText(QApplication::translate("WikiWindow", "Back", Q_NULLPTR));
+        btnForward->setText(QApplication::translate("WikiWindow", "Forward", Q_NULLPTR));
+        btnReload->setText(QApplication::translate("WikiWindow", "Reload Page", Q_NULLPTR));
     } // retranslateUi
 
 };
