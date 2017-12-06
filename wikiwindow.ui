@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WikiWindow</class>
+ <widget class="QWidget" name="WikiWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Help</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../Desktop/Workflow Icon.png</normaloff>../../../Desktop/Workflow Icon.png</iconset>
+  </property>
+  <widget class="QTextBrowser" name="wikiBrowser">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>461</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="source">
+    <url>
+     <string>file:.</string>
+    </url>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTitle">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>461</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>17</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Workflow Wiki</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnBack">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnForward">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>50</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Forward</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnReload">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>50</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Reload Page</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btnBack</sender>
+   <signal>clicked()</signal>
+   <receiver>wikiBrowser</receiver>
+   <slot>backward()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>61</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnForward</sender>
+   <signal>clicked()</signal>
+   <receiver>wikiBrowser</receiver>
+   <slot>forward()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>427</x>
+     <y>61</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnReload</sender>
+   <signal>clicked()</signal>
+   <receiver>wikiBrowser</receiver>
+   <slot>reload()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>61</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
