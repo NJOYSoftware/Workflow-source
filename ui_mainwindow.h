@@ -37,6 +37,7 @@ public:
     QAction *actionModify_Project_Title;
     QAction *actionAbout_Qt;
     QAction *actionAbout_Workflow;
+    QAction *actionSearchNode;
     QWidget *centralWidget;
     QFrame *frame;
     QLabel *lblProjectTitle;
@@ -60,7 +61,8 @@ public:
     QGraphicsView *grvCurrentTask;
     QMenuBar *menuBar;
     QMenu *menuMenu;
-    QMenu *menuAbout;
+    QMenu *menuHelp;
+    QMenu *menuTools;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -77,6 +79,7 @@ public:
         QIcon icon;
         icon.addFile(QStringLiteral("../../../Desktop/Workflow Icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
+        MainWindow->setAnimated(false);
         actionLoad = new QAction(MainWindow);
         actionLoad->setObjectName(QStringLiteral("actionLoad"));
         actionLoad->setShortcutContext(Qt::WidgetShortcut);
@@ -94,6 +97,8 @@ public:
         actionAbout_Qt->setObjectName(QStringLiteral("actionAbout_Qt"));
         actionAbout_Workflow = new QAction(MainWindow);
         actionAbout_Workflow->setObjectName(QStringLiteral("actionAbout_Workflow"));
+        actionSearchNode = new QAction(MainWindow);
+        actionSearchNode->setObjectName(QStringLiteral("actionSearchNode"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         frame = new QFrame(centralWidget);
@@ -245,24 +250,27 @@ public:
         menuBar->setGeometry(QRect(0, 0, 982, 22));
         menuMenu = new QMenu(menuBar);
         menuMenu->setObjectName(QStringLiteral("menuMenu"));
-        menuAbout = new QMenu(menuBar);
-        menuAbout->setObjectName(QStringLiteral("menuAbout"));
+        menuHelp = new QMenu(menuBar);
+        menuHelp->setObjectName(QStringLiteral("menuHelp"));
+        menuTools = new QMenu(menuBar);
+        menuTools->setObjectName(QStringLiteral("menuTools"));
         MainWindow->setMenuBar(menuBar);
 
         menuBar->addAction(menuMenu->menuAction());
-        menuBar->addAction(menuAbout->menuAction());
+        menuBar->addAction(menuTools->menuAction());
+        menuBar->addAction(menuHelp->menuAction());
         menuMenu->addAction(actionNew_Project);
-        menuMenu->addSeparator();
-        menuMenu->addAction(actionModify_Project_Title);
         menuMenu->addSeparator();
         menuMenu->addAction(actionSave);
         menuMenu->addAction(actionLoad);
-        menuAbout->addAction(actionHelp);
-        menuAbout->addSeparator();
-        menuAbout->addAction(actionReport_Bug);
-        menuAbout->addSeparator();
-        menuAbout->addAction(actionAbout_Workflow);
-        menuAbout->addAction(actionAbout_Qt);
+        menuHelp->addAction(actionHelp);
+        menuHelp->addSeparator();
+        menuHelp->addAction(actionAbout_Workflow);
+        menuHelp->addAction(actionAbout_Qt);
+        menuTools->addAction(actionModify_Project_Title);
+        menuTools->addAction(actionSearchNode);
+        menuTools->addSeparator();
+        menuTools->addAction(actionReport_Bug);
 
         retranslateUi(MainWindow);
 
@@ -280,6 +288,7 @@ public:
         actionModify_Project_Title->setText(QApplication::translate("MainWindow", "Modify Project Title", Q_NULLPTR));
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
         actionAbout_Workflow->setText(QApplication::translate("MainWindow", "About Workflow", Q_NULLPTR));
+        actionSearchNode->setText(QApplication::translate("MainWindow", "Search Node", Q_NULLPTR));
         lblProjectTitle->setText(QString());
         lblDepTree->setText(QString());
         lblChildren->setText(QApplication::translate("MainWindow", "Sub Tasks", Q_NULLPTR));
@@ -298,7 +307,8 @@ public:
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", Q_NULLPTR));
         menuMenu->setTitle(QApplication::translate("MainWindow", "Menu", Q_NULLPTR));
-        menuAbout->setTitle(QApplication::translate("MainWindow", "About", Q_NULLPTR));
+        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
+        menuTools->setTitle(QApplication::translate("MainWindow", "Tools", Q_NULLPTR));
     } // retranslateUi
 
 };

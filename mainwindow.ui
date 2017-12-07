@@ -32,6 +32,9 @@
    <iconset>
     <normaloff>../../../Desktop/Workflow Icon.png</normaloff>../../../Desktop/Workflow Icon.png</iconset>
   </property>
+  <property name="animated">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QFrame" name="frame">
     <property name="geometry">
@@ -550,24 +553,30 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionNew_Project"/>
     <addaction name="separator"/>
-    <addaction name="actionModify_Project_Title"/>
-    <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionLoad"/>
    </widget>
-   <widget class="QMenu" name="menuAbout">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>About</string>
+     <string>Help</string>
     </property>
     <addaction name="actionHelp"/>
-    <addaction name="separator"/>
-    <addaction name="actionReport_Bug"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_Workflow"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionModify_Project_Title"/>
+    <addaction name="actionSearchNode"/>
+    <addaction name="separator"/>
+    <addaction name="actionReport_Bug"/>
+   </widget>
    <addaction name="menuMenu"/>
-   <addaction name="menuAbout"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionLoad">
    <property name="text">
@@ -610,6 +619,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionAbout_Workflow">
    <property name="text">
     <string>About Workflow</string>
+   </property>
+  </action>
+  <action name="actionSearchNode">
+   <property name="text">
+    <string>Search Node</string>
    </property>
   </action>
  </widget>

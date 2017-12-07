@@ -5,6 +5,7 @@
 #include "taskwindow.hpp"
 #include "taskgraphicsscene.hpp"
 #include "wikiwindow.hpp"
+#include "searchdialog.hpp"
 
 #include <new>
 #include <iostream>
@@ -317,3 +318,9 @@ void MainWindow::openFile(){
 }
 
 */
+
+void MainWindow::on_actionSearchNode_triggered()
+{
+    searchDialog *searchWindow = new searchDialog(this);
+    searchWindow->show();
+}

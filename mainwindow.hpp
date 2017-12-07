@@ -63,6 +63,8 @@ private slots:
 
     void on_btnNextPage_clicked();
 
+    void on_actionSearchNode_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

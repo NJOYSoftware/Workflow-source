@@ -32,7 +32,8 @@ SOURCES += \
     taskwindow.cpp \
     taskgraphicsscene.cpp \
     childtext.cpp \
-    wikiwindow.cpp
+    wikiwindow.cpp \
+    searchdialog.cpp
 
 HEADERS += \
         mainwindow.hpp \
@@ -42,12 +43,14 @@ HEADERS += \
     taskwindow.hpp \
     taskgraphicsscene.hpp \
     childtext.hpp \
-    wikiwindow.hpp
+    wikiwindow.hpp \
+    searchdialog.hpp
 
 FORMS += \
         mainwindow.ui \
     taskwindow.ui \
-    wikiwindow.ui
+    wikiwindow.ui \
+    searchdialog.ui
 
 RC_FILE = workflow.rc
 
