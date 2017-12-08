@@ -83,6 +83,7 @@ Task* Task::addChild(qint32 nextId, Task* newMaster){
   newChild->setId(nextId);
   taskWindow* addChildWindow = new taskWindow(newChild);
   if(addChildWindow->exec() == taskWindow::Accepted){
+      this->setCompleted(false);
       children.push_back(newChild);
       return newChild;
   }

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_searchDialog_t {
-    QByteArrayData data[5];
-    char stringdata0[74];
+    QByteArrayData data[6];
+    char stringdata0[80];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,11 +35,12 @@ QT_MOC_LITERAL(0, 0, 12), // "searchDialog"
 QT_MOC_LITERAL(1, 13, 30), // "on_ledSearchString_textChanged"
 QT_MOC_LITERAL(2, 44, 0), // ""
 QT_MOC_LITERAL(3, 45, 4), // "arg1"
-QT_MOC_LITERAL(4, 50, 23) // "on_cmbResults_activated"
+QT_MOC_LITERAL(4, 50, 23), // "on_cmbResults_activated"
+QT_MOC_LITERAL(5, 74, 5) // "index"
 
     },
     "searchDialog\0on_ledSearchString_textChanged\0"
-    "\0arg1\0on_cmbResults_activated"
+    "\0arg1\0on_cmbResults_activated\0index"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +63,7 @@ static const uint qt_meta_data_searchDialog[] = {
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, QMetaType::Int,    5,
 
        0        // eod
 };
@@ -74,7 +75,7 @@ void searchDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_ledSearchString_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 1: _t->on_cmbResults_activated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->on_cmbResults_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }

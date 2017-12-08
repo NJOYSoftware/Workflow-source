@@ -321,6 +321,6 @@ void MainWindow::openFile(){
 
 void MainWindow::on_actionSearchNode_triggered()
 {
-    searchDialog *searchWindow = new searchDialog(this);
+    searchDialog *searchWindow = new searchDialog(this, &currentTask, &currentProj);
     searchWindow->show();
 }
