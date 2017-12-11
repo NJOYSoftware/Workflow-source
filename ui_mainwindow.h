@@ -82,7 +82,11 @@ public:
         MainWindow->setAnimated(false);
         actionLoad = new QAction(MainWindow);
         actionLoad->setObjectName(QStringLiteral("actionLoad"));
-        actionLoad->setShortcutContext(Qt::WidgetShortcut);
+#ifndef QT_NO_SHORTCUT
+        actionLoad->setShortcut(QStringLiteral("Ctrl+O"));
+#endif // QT_NO_SHORTCUT
+        actionLoad->setShortcutContext(Qt::WindowShortcut);
+        actionLoad->setAutoRepeat(false);
         actionSave = new QAction(MainWindow);
         actionSave->setObjectName(QStringLiteral("actionSave"));
         actionReport_Bug = new QAction(MainWindow);
@@ -280,15 +284,27 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Workflow", Q_NULLPTR));
-        actionLoad->setText(QApplication::translate("MainWindow", "Load", Q_NULLPTR));
-        actionSave->setText(QApplication::translate("MainWindow", "Save", Q_NULLPTR));
+        actionLoad->setText(QApplication::translate("MainWindow", "Open Project", Q_NULLPTR));
+        actionSave->setText(QApplication::translate("MainWindow", "Save Project", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        actionSave->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         actionReport_Bug->setText(QApplication::translate("MainWindow", "Report Bug", Q_NULLPTR));
         actionNew_Project->setText(QApplication::translate("MainWindow", "New Project...", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        actionNew_Project->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         actionHelp->setText(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        actionHelp->setShortcut(QApplication::translate("MainWindow", "F1", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         actionModify_Project_Title->setText(QApplication::translate("MainWindow", "Modify Project Title", Q_NULLPTR));
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
         actionAbout_Workflow->setText(QApplication::translate("MainWindow", "About Workflow", Q_NULLPTR));
         actionSearchNode->setText(QApplication::translate("MainWindow", "Search Node", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        actionSearchNode->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         lblProjectTitle->setText(QString());
         lblDepTree->setText(QString());
         lblChildren->setText(QApplication::translate("MainWindow", "Sub Tasks", Q_NULLPTR));
@@ -306,7 +322,7 @@ public:
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", Q_NULLPTR));
-        menuMenu->setTitle(QApplication::translate("MainWindow", "Menu", Q_NULLPTR));
+        menuMenu->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", Q_NULLPTR));
     } // retranslateUi
