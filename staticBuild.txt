@@ -1,7 +1,7 @@
 #use these commands in terminal, one at time
 
 make clean
-PATH = /path/to/Qt/bin:$PATH
+PATH=/path/to/Qt/bin:$PATH
 export PATH
 qmake -config release
 make

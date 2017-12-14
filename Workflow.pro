@@ -52,11 +52,12 @@ FORMS += \
     wikiwindow.ui \
     searchdialog.ui
 
-RC_FILE = workflow.rc
-
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -O3
 
 DEFINES += APP_NAME=\\\"Workflow\\\"
 VERSION = 1.2.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
+RESOURCES += \
+    resources.qrc

@@ -60,6 +60,7 @@ SOURCES       = main.cpp \
 		childtext.cpp \
 		wikiwindow.cpp \
 		searchdialog.cpp /media/alex/DATA/Git\ Repo/Workflow-Source/workflow_plugin_import.cpp \
+		qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_taskwindow.cpp \
 		moc_taskgraphicsscene.cpp \
@@ -76,6 +77,7 @@ OBJECTS       = main.o \
 		wikiwindow.o \
 		searchdialog.o \
 		workflow_plugin_import.o \
+		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_taskwindow.o \
 		moc_taskgraphicsscene.o \
@@ -409,6 +411,7 @@ Makefile: Workflow.pro ../../QT/5.9.3/Src/qtbase/mkspecs/linux-g++/qmake.conf ..
 		../../QT/5.9.3/Src/qtbase/mkspecs/features/yacc.prf \
 		../../QT/5.9.3/Src/qtbase/mkspecs/features/lex.prf \
 		Workflow.pro \
+		resources.qrc \
 		../../QT/5.9.3/Src/qtbase/plugins/platforms/libqxcb.prl \
 		../../QT/5.9.3/Src/qtbase/plugins/xcbglintegrations/libqxcb-glx-integration.prl \
 		../../QT/5.9.3/Src/qtbase/plugins/imageformats/libqgif.prl \
@@ -568,6 +571,7 @@ Makefile: Workflow.pro ../../QT/5.9.3/Src/qtbase/mkspecs/linux-g++/qmake.conf ..
 ../../QT/5.9.3/Src/qtbase/mkspecs/features/yacc.prf:
 ../../QT/5.9.3/Src/qtbase/mkspecs/features/lex.prf:
 Workflow.pro:
+resources.qrc:
 ../../QT/5.9.3/Src/qtbase/plugins/platforms/libqxcb.prl:
 ../../QT/5.9.3/Src/qtbase/plugins/xcbglintegrations/libqxcb-glx-integration.prl:
 ../../QT/5.9.3/Src/qtbase/plugins/imageformats/libqgif.prl:
@@ -590,6 +594,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../QT/5.9.3/Src/qtbase/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.hpp project.hpp filemanager.hpp task.hpp taskwindow.hpp taskgraphicsscene.hpp childtext.hpp wikiwindow.hpp searchdialog.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp mainwindow.cpp project.cpp filemanager.cpp task.cpp taskwindow.cpp taskgraphicsscene.cpp childtext.cpp wikiwindow.cpp searchdialog.cpp $(DISTDIR)/
@@ -617,8 +622,15 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: resources.qrc \
+		../../QT/5.9.3/Src/qtbase/bin/rcc \
+		Ubuntu-M.ttf \
+		Workflow_Icon.ico
+	/media/alex/DATA/QT/5.9.3/Src/qtbase/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -1787,7 +1799,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -2030,7 +2042,16 @@ main.o: main.cpp mainwindow.hpp \
 		../../QT/5.9.3/Src/qtbase/include/QtGui/qguiapplication.h \
 		../../QT/5.9.3/Src/qtbase/src/gui/kernel/qguiapplication.h \
 		../../QT/5.9.3/Src/qtbase/include/QtGui/qinputmethod.h \
-		../../QT/5.9.3/Src/qtbase/src/gui/kernel/qinputmethod.h
+		../../QT/5.9.3/Src/qtbase/src/gui/kernel/qinputmethod.h \
+		../../QT/5.9.3/Src/qtbase/include/QtCore/QFile \
+		../../QT/5.9.3/Src/qtbase/include/QtCore/QDir \
+		../../QT/5.9.3/Src/qtbase/include/QtCore/qdir.h \
+		../../QT/5.9.3/Src/qtbase/src/corelib/io/qdir.h \
+		../../QT/5.9.3/Src/qtbase/include/QtCore/qfileinfo.h \
+		../../QT/5.9.3/Src/qtbase/src/corelib/io/qfileinfo.h \
+		../../QT/5.9.3/Src/qtbase/include/QtGui/QFontDatabase \
+		../../QT/5.9.3/Src/qtbase/include/QtGui/qfontdatabase.h \
+		../../QT/5.9.3/Src/qtbase/src/gui/text/qfontdatabase.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.hpp \
@@ -3895,6 +3916,9 @@ searchdialog.o: searchdialog.cpp searchdialog.hpp \
 
 workflow_plugin_import.o: /media/alex/DATA/Git\ Repo/Workflow-Source/workflow_plugin_import.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o workflow_plugin_import.o /media/alex/DATA/Git\ Repo/Workflow-Source/workflow_plugin_import.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

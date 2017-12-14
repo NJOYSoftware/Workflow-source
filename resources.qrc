@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>Workflow_Icon.ico</file>
+        <file>Ubuntu-M.ttf</file>
+    </qresource>
+</RCC>
