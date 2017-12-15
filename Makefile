@@ -627,8 +627,8 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		../../QT/5.9.3/Src/qtbase/bin/rcc \
-		Ubuntu-M.ttf \
-		Workflow_Icon.ico
+		Workflow_Icon.ico \
+		Ubuntu-R.ttf
 	/media/alex/DATA/QT/5.9.3/Src/qtbase/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
