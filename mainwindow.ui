@@ -29,8 +29,8 @@
    <string>Workflow</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../../Desktop/Workflow Icon.png</normaloff>../../../Desktop/Workflow Icon.png</iconset>
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/Workflow_Icon.ico</normaloff>:/resources/Workflow_Icon.ico</iconset>
   </property>
   <property name="animated">
    <bool>false</bool>
@@ -342,7 +342,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;</string>
+     <string>&lt;-</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnNextPage">
@@ -358,7 +358,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&gt;</string>
+     <string>-&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblChildrenPage">
@@ -638,7 +638,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSearchNode">
    <property name="text">
-    <string>Search Node</string>
+    <string>Search Task</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -646,6 +646,8 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

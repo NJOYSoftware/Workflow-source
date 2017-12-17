@@ -77,7 +77,7 @@ public:
         MainWindow->setMinimumSize(QSize(982, 600));
         MainWindow->setMouseTracking(true);
         QIcon icon;
-        icon.addFile(QStringLiteral("../../../Desktop/Workflow Icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral(":/resources/Workflow_Icon.ico"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setAnimated(false);
         actionLoad = new QAction(MainWindow);
@@ -301,7 +301,7 @@ public:
         actionModify_Project_Title->setText(QApplication::translate("MainWindow", "Modify Project Title", Q_NULLPTR));
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
         actionAbout_Workflow->setText(QApplication::translate("MainWindow", "About Workflow", Q_NULLPTR));
-        actionSearchNode->setText(QApplication::translate("MainWindow", "Search Node", Q_NULLPTR));
+        actionSearchNode->setText(QApplication::translate("MainWindow", "Search Task", Q_NULLPTR));
 #ifndef QT_NO_SHORTCUT
         actionSearchNode->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
@@ -310,8 +310,8 @@ public:
         lblChildren->setText(QApplication::translate("MainWindow", "Sub Tasks", Q_NULLPTR));
         btnPrevTask->setText(QApplication::translate("MainWindow", "Previous Task", Q_NULLPTR));
         btnNewMaster->setText(QApplication::translate("MainWindow", "New Super Task", Q_NULLPTR));
-        btnPreviousPage->setText(QApplication::translate("MainWindow", "<", Q_NULLPTR));
-        btnNextPage->setText(QApplication::translate("MainWindow", ">", Q_NULLPTR));
+        btnPreviousPage->setText(QApplication::translate("MainWindow", "<-", Q_NULLPTR));
+        btnNextPage->setText(QApplication::translate("MainWindow", "->", Q_NULLPTR));
         lblChildrenPage->setText(QApplication::translate("MainWindow", "Page:", Q_NULLPTR));
         btnModify->setText(QApplication::translate("MainWindow", "Modify Task", Q_NULLPTR));
         btnAddChild->setText(QApplication::translate("MainWindow", "Add Sub Task", Q_NULLPTR));

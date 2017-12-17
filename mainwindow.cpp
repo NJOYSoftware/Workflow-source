@@ -220,7 +220,7 @@ void MainWindow::on_btnNewMaster_clicked()
         }
     }
     else{
-        QMessageBox newMasterBox(QMessageBox::Warning, "Attention", "This current node has already a Master Task");
+        QMessageBox newMasterBox(QMessageBox::Warning, "Attention", "This current Task has already a Master Task");
         newMasterBox.exec();
     }
 

@@ -3,4 +3,32 @@
         <file>Workflow_Icon.ico</file>
         <file>Ubuntu-R.ttf</file>
     </qresource>
+    <qresource prefix="/Wiki">
+        <file>Wiki Workflow/index.html</file>
+        <file>Wiki Workflow/modifying_elements.html</file>
+        <file>Wiki Workflow/new_tasks.html</file>
+        <file>Wiki Workflow/report_bugs.html</file>
+        <file>Wiki Workflow/save_load.html</file>
+        <file>Wiki Workflow/start.html</file>
+        <file>Wiki Workflow/task_completion.html</file>
+        <file>Wiki Workflow/task_navigation.html</file>
+        <file>Wiki Workflow/resources/Wiki - Completing a task.png</file>
+        <file>Wiki Workflow/resources/Wiki - Completing a task 1.png</file>
+        <file>Wiki Workflow/resources/Wiki - First task.png</file>
+        <file>Wiki Workflow/resources/Wiki - Loading a project.png</file>
+        <file>Wiki Workflow/resources/Wiki - Modifying existing tasks.png</file>
+        <file>Wiki Workflow/resources/Wiki - modify project Title.png</file>
+        <file>Wiki Workflow/resources/Wiki - Navigating through tasks - down.png</file>
+        <file>Wiki Workflow/resources/Wiki - Navigating through tasks - up.png</file>
+        <file>Wiki Workflow/resources/Wiki - new Master Task.png</file>
+        <file>Wiki Workflow/resources/Wiki - New Project.png</file>
+        <file>Wiki Workflow/resources/Wiki - New Project name.png</file>
+        <file>Wiki Workflow/resources/Wiki - new sub task.png</file>
+        <file>Wiki Workflow/resources/Wiki - Reporting a bug.png</file>
+        <file>Wiki Workflow/resources/Wiki - Reporting a bug - example.png</file>
+        <file>Wiki Workflow/resources/Wiki - Saving a project.png</file>
+        <file>Wiki Workflow/resources/Wiki - Saving a project - name.png</file>
+        <file>Wiki Workflow/resources/Wiki - Search node.png</file>
+        <file>Wiki Workflow/resources/Wiki - Search task.png</file>
+    </qresource>
 </RCC>

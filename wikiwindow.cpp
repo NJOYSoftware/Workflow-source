@@ -7,11 +7,8 @@ WikiWindow::WikiWindow(QWidget *parent) :
   ui(new Ui::WikiWindow)
 {
   ui->setupUi(this);
-  QString dirPath;
-  dirPath = qApp->applicationDirPath();
-  dirPath += "/Wiki Workflow/index.html";
-  dirPath = "file:///" + dirPath;
-  ui->wikiBrowser->setSource(QUrl(dirPath));
+
+  ui->wikiBrowser->setSource(QUrl(":/Wiki"));
 }
 
 WikiWindow::~WikiWindow()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>640</height>
+    <width>498</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>461</width>
+     <width>481</width>
      <height>551</height>
     </rect>
    </property>
@@ -31,7 +31,7 @@
    </property>
    <property name="source">
     <url>
-     <string>file:.</string>
+     <string>qrc:/Wiki/Wiki Workflow/index.html</string>
     </url>
    </property>
    <property name="openExternalLinks">

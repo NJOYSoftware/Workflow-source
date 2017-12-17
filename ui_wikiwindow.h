@@ -34,15 +34,15 @@ public:
     {
         if (WikiWindow->objectName().isEmpty())
             WikiWindow->setObjectName(QStringLiteral("WikiWindow"));
-        WikiWindow->resize(480, 640);
+        WikiWindow->resize(498, 639);
         QIcon icon;
         icon.addFile(QStringLiteral("../../../Desktop/Workflow Icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         WikiWindow->setWindowIcon(icon);
         wikiBrowser = new QTextBrowser(WikiWindow);
         wikiBrowser->setObjectName(QStringLiteral("wikiBrowser"));
-        wikiBrowser->setGeometry(QRect(10, 80, 461, 551));
+        wikiBrowser->setGeometry(QRect(10, 80, 481, 551));
         wikiBrowser->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-        wikiBrowser->setSource(QUrl(QStringLiteral("file:.")));
+        wikiBrowser->setSource(QUrl(QStringLiteral("qrc:/Wiki/Wiki Workflow/index.html")));
         wikiBrowser->setOpenExternalLinks(true);
         lblTitle = new QLabel(WikiWindow);
         lblTitle->setObjectName(QStringLiteral("lblTitle"));
