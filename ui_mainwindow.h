@@ -38,6 +38,7 @@ public:
     QAction *actionAbout_Qt;
     QAction *actionAbout_Workflow;
     QAction *actionSearchNode;
+    QAction *actionSave_Project_as;
     QWidget *centralWidget;
     QFrame *frame;
     QLabel *lblProjectTitle;
@@ -103,6 +104,8 @@ public:
         actionAbout_Workflow->setObjectName(QStringLiteral("actionAbout_Workflow"));
         actionSearchNode = new QAction(MainWindow);
         actionSearchNode->setObjectName(QStringLiteral("actionSearchNode"));
+        actionSave_Project_as = new QAction(MainWindow);
+        actionSave_Project_as->setObjectName(QStringLiteral("actionSave_Project_as"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         frame = new QFrame(centralWidget);
@@ -266,6 +269,7 @@ public:
         menuMenu->addAction(actionNew_Project);
         menuMenu->addSeparator();
         menuMenu->addAction(actionSave);
+        menuMenu->addAction(actionSave_Project_as);
         menuMenu->addAction(actionLoad);
         menuHelp->addAction(actionHelp);
         menuHelp->addSeparator();
@@ -305,6 +309,7 @@ public:
 #ifndef QT_NO_SHORTCUT
         actionSearchNode->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+        actionSave_Project_as->setText(QApplication::translate("MainWindow", "Save Project as ...", Q_NULLPTR));
         lblProjectTitle->setText(QString());
         lblDepTree->setText(QString());
         lblChildren->setText(QApplication::translate("MainWindow", "Sub Tasks", Q_NULLPTR));

@@ -24,6 +24,22 @@ QString Project::getTitle(){
    return this->projectTitle;
 }
 
+void Project::setSavePath(QString newSavePath){
+    savePath = newSavePath;
+}
+
+QString Project::getSavePath(){
+    return savePath;
+}
+
+void Project::setModified(bool isModified){
+    modified = isModified;
+}
+
+bool Project::getModified(){
+    return modified;
+}
+
 bool Project::loadProject(){
     QString projPath = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
     QFile filePath(projPath);
@@ -125,19 +141,23 @@ bool Project::loadProject(){
 
             fileIterator += 8;
         }
-        return 1;
+        savePath = projPath;
+        return 0;
     }
     else{
         QMessageBox errorWindow(QMessageBox::Warning, "Warning!", "The project hasn't been loaded correctly!", QMessageBox::Ok);
         errorWindow.exec();
-        return 0;
+        return 1;
     }
 
 }
 
-void Project::saveProject(){
-    QString savePath = QFileDialog::getSaveFileName(nullptr, QString(getTitle()), QString(""), QString("Workflow Project File ( *.wfp)"));
-    QFile filePath(savePath);
+void Project::saveProject(QString currentSavePath){
+    if(currentSavePath.isEmpty()){
+        currentSavePath = QFileDialog::getSaveFileName(nullptr, QString(getTitle()), QString(""), QString("Workflow Project File ( *.wfp)"));
+        savePath = currentSavePath;
+    }
+    QFile filePath(currentSavePath);
     int* tempArrayPointer;
     QString tempString;
     Task* tempTask;
@@ -218,6 +238,7 @@ void Project::saveProject(){
                 }
             }
         }
+        modified = 0;
     }
     else{
         QMessageBox errorWindow(QMessageBox::Warning, "Warning!", "The project hasn't been saved correctly!", QMessageBox::Ok);

@@ -24,6 +24,7 @@ public:
     void drawAllTasks();
     void setWindowTexts();
     void updatePageLabel();
+    void closeEvent(QCloseEvent *event);
 
     //debug new feature
     //void openFile();
@@ -64,6 +65,8 @@ private slots:
     void on_btnNextPage_clicked();
 
     void on_actionSearchNode_triggered();
+
+    void on_actionSave_Project_as_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -18,6 +18,7 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <cmath>
+#include <QCloseEvent>
 
 #define CHILDREN_SCENE_COUNT 4
 
@@ -60,7 +61,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionLoad_triggered()
 {
-    if(currentProj.loadProject()){
+    if(currentProj.getModified()){
+        QMessageBox *information = new QMessageBox("Attention!", "Your project hasn't been saved since last changes. If you continue, they will be lost. Continue?", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
+        information->exec();
+        if(information->result() == QMessageBox::No){
+            delete(information);
+            return;
+        }
+    }
+    if(!currentProj.loadProject()){
         ui->lblProjectTitle->setText(currentProj.getTitle() );
         currentTask = currentProj.getProjectTasks()[0];
         updateWindow();
@@ -69,7 +78,7 @@ void MainWindow::on_actionLoad_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    currentProj.saveProject();
+    currentProj.saveProject(currentProj.getSavePath());
 }
 
 void MainWindow::updateWindow()
@@ -82,35 +91,40 @@ void MainWindow::updateWindow()
 }
 
 
-void MainWindow::on_actionNew_Project_triggered()
-{
-  currentTask = new Task();
+void MainWindow::on_actionNew_Project_triggered(){
 
-  currentProj.getProjectTasks().clear();
+    if(currentProj.getModified()){
+        QMessageBox *information = new QMessageBox("Attention!", "Your project hasn't been saved since last changes. If you continue, they will be lost. Continue?", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
+        information->exec();
+        if(information->result() == QMessageBox::No){
+            delete(information);
+            return;
+        }
+    }
+        currentTask = new Task();
+        currentProj.getProjectTasks().clear();
+        QString tempProjTitle = QInputDialog::getText(this, "New Project", "Insert the title for the new project:", QLineEdit::Normal, "Project Title max 30 characters");
+        currentProj.setTitle(tempProjTitle);
 
-  QString tempProjTitle = QInputDialog::getText(this, "New Project", "Insert the title for the new project:", QLineEdit::Normal, "Project Title max 30 characters");
-  currentProj.setTitle(tempProjTitle);
-
-  currentTask->setId(0);
-  taskWindow* newTaskWindow = new taskWindow(currentTask);
-  if(newTaskWindow->exec() == taskWindow::Accepted){
-      currentProj.addTaskAsChildren(currentTask);
-      updateWindow();
-  }
-  else{
-      QMessageBox errorBox(QMessageBox::Warning, "Error in creating new project", "New project creation aborted!");
-      errorBox.exec();
-  }
-  delete(newTaskWindow);
-
-
+        currentTask->setId(0);
+        taskWindow* newTaskWindow = new taskWindow(currentTask);
+        if(tempProjTitle != NULL && newTaskWindow->exec() == taskWindow::Accepted){
+            currentProj.addTaskAsChildren(currentTask);
+            updateWindow();
+            currentProj.setModified(true);
+        }
+        else{
+            QMessageBox errorBox(QMessageBox::Warning, "Error in creating new project", "New project creation aborted!");
+            errorBox.exec();
+        }
+        delete(newTaskWindow);
 }
 
 void MainWindow::on_btnModify_clicked()
 {
     taskWindow* modifyWindow = new taskWindow(currentTask);
     modifyWindow->exec();
-
+    currentProj.setModified(true);
     delete(modifyWindow);
     updateWindow();
 }
@@ -119,6 +133,7 @@ void MainWindow::on_btnComplete_clicked()
 {
     if(currentTask->isCompletable()){
         currentTask->setCompleted(true);
+        currentProj.setModified(true);
     }
     else{
         QMessageBox errorBox(QMessageBox::Warning, "Error", "The sub task are not completed. Please complete them first");
@@ -132,6 +147,7 @@ void MainWindow::on_btnAddChild_clicked()
   Task* child = currentTask->addChild(currentProj.getProjectTasks().size(), currentTask);
   if(child){
       currentProj.addTaskAsChildren(child);
+      currentProj.setModified(true);
   }
   updateWindow();
 }
@@ -217,6 +233,7 @@ void MainWindow::on_btnNewMaster_clicked()
         if(child){
             currentProj.addTaskAsMaster(child);
             currentTask = child;
+            currentProj.setModified(true);
         }
     }
     else{
@@ -248,9 +265,16 @@ void MainWindow::on_actionModify_Project_Title_triggered()
       return;
   }
   QString tempProjTitle = QInputDialog::getText(this, "Change Project Title", "Change the Project title to:");
-  currentProj.setTitle(tempProjTitle);
-
-  updateWindow();
+    if(tempProjTitle != NULL){
+        currentProj.setTitle(tempProjTitle);
+        currentProj.setModified(true);
+        updateWindow();
+    }
+    else{
+        QMessageBox projectWarning(QMessageBox::Warning, "Warning", "Title modification has been cancelled!");
+        projectWarning.exec();
+        return;
+    }
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()
@@ -323,4 +347,26 @@ void MainWindow::on_actionSearchNode_triggered()
 {
     searchDialog *searchWindow = new searchDialog(this, &currentTask, &currentProj);
     searchWindow->show();
+}
+
+void MainWindow::on_actionSave_Project_as_triggered()
+{
+    currentProj.saveProject();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event){
+    if(currentProj.getModified()){
+        QMessageBox *information = new QMessageBox("Attention!", "Your project hasn't been saved since last changes. If you continue, they will be lost. Continue?", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
+        information->exec();
+        if(information->result() == QMessageBox::No){
+            delete(information);
+            event->ignore();
+        }
+        else{
+            event->accept();
+        }
+    }
+    else{
+        event->accept();
+    }
 }

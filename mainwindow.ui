@@ -554,6 +554,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionNew_Project"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
+    <addaction name="actionSave_Project_as"/>
     <addaction name="actionLoad"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -642,6 +643,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionSave_Project_as">
+   <property name="text">
+    <string>Save Project as ...</string>
    </property>
   </action>
  </widget>
