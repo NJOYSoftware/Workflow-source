@@ -11,6 +11,8 @@
 
 #define COMPLETED 43
 #define UNCOMPLETED 45
+#define CHAR_OFFSET CHAR_OFFSET
+#define NUM_OFFSET CHAR_OFFSET
 
 Project::Project(){
 
@@ -47,7 +49,7 @@ bool Project::loadProject(){
     QString tempString = "";
     QString fileString;
     qint32 tempNumber = 0;
-    int tempByteArray[8];
+    int tempByteArray[CHAR_OFFSET];
 
     Task* masterTask;
 
@@ -58,8 +60,8 @@ bool Project::loadProject(){
         QTextStream readFromFile(&filePath);
         fileString = readFromFile.readAll();
       //Title
-        for(; fileIterator < 30 * 8; fileIterator+=8){
-            for(int j = 0; j < 8; j++){
+        for(; fileIterator < 30 * CHAR_OFFSET; fileIterator+=CHAR_OFFSET){
+            for(int j = 0; j < CHAR_OFFSET; j++){
                 tempByteArray[j] = fileString[fileIterator + j].digitValue();
             }
             tempNumber = FileManager::BinaryToInt(tempByteArray);
@@ -73,17 +75,17 @@ bool Project::loadProject(){
           //ID
         while(fileIterator < fileString.size() ){
             Task* tempTask = new Task();
-            for(int i = 0; i < 8; i++){
+            for(int i = 0; i < NUM_OFFSET; i++){
                 tempByteArray[i] = fileString[fileIterator + i].digitValue();
             }
 
             tempNumber = FileManager::BinaryToInt(tempByteArray);
             tempTask->setId(tempNumber);
-            fileIterator += 8;
+            fileIterator += NUM_OFFSET;
 
           //Title
             for(int i = 0; i < 20; i++){
-                for(int j = 0; j < 8; j++){
+                for(int j = 0; j < CHAR_OFFSET; j++){
                     tempByteArray[j] = fileString[fileIterator + j].digitValue();
                 }
                 tempNumber = FileManager::BinaryToInt(tempByteArray);
@@ -91,13 +93,13 @@ bool Project::loadProject(){
                     tempString.append(QChar(tempNumber));
                 }
 
-                fileIterator += 8;
+                fileIterator += CHAR_OFFSET;
             }
             tempTask->setTitle(tempString);
             tempString.clear();
           //Text
             for(int i = 0; i < 140; i++){
-                for(int j = 0; j < 8; j++){
+                for(int j = 0; j < CHAR_OFFSET; j++){
                     tempByteArray[j] = fileString[fileIterator + j].digitValue();
                 }
                 tempNumber = FileManager::BinaryToInt(tempByteArray);
@@ -105,12 +107,12 @@ bool Project::loadProject(){
                     tempString.append(QChar(tempNumber));
                 }
 
-                fileIterator += 8;
+                fileIterator += CHAR_OFFSET;
             }
             tempTask->setText(tempString);
             tempString.clear();
           //Completed
-            for(int j = 0; j < 8; j++){
+            for(int j = 0; j < CHAR_OFFSET; j++){
                 tempByteArray[j] = fileString[fileIterator + j].digitValue();
             }
             tempNumber = FileManager::BinaryToInt(tempByteArray);
@@ -121,9 +123,9 @@ bool Project::loadProject(){
                 tempTask->setCompleted(false);
             }
 
-            fileIterator += 8;
+            fileIterator += CHAR_OFFSET;
           //MasterID
-            for(int j = 0; j < 8; j++){
+            for(int j = 0; j < NUM_OFFSET; j++){
                 tempByteArray[j] = fileString[fileIterator + j].digitValue();
             }
             tempNumber = FileManager::BinaryToInt(tempByteArray);
@@ -139,7 +141,7 @@ bool Project::loadProject(){
 
             addTaskAsChildren(tempTask);
 
-            fileIterator += 8;
+            fileIterator += NUM_OFFSET;
         }
         savePath = projPath;
         return 0;
@@ -167,13 +169,13 @@ void Project::saveProject(QString currentSavePath){
       //Title
         for(int i = 0; i < projectTitle.size(); i++){
             tempArrayPointer = FileManager::IntToBinary(projectTitle[i].toLatin1());
-            for(int j = 0; j < 8; j++){
+            for(int j = 0; j < CHAR_OFFSET; j++){
                 writeOnFile << tempArrayPointer[j];
               }
         }
         for (unsigned i = projectTitle.size(); i < 30; i++){
           //NULL writer
-            for(int i = 0; i < 8; i++){
+            for(int i = 0; i < CHAR_OFFSET; i++){
                 writeOnFile << 0;
             }
         }
@@ -182,19 +184,19 @@ void Project::saveProject(QString currentSavePath){
             tempTask = projectTasks[i];
           //ID
             tempArrayPointer = FileManager::IntToBinary(tempTask->getId());
-            for(int j = 0; j < 8; j++){
+            for(int j = 0; j < NUM_OFFSET; j++){
                 writeOnFile << tempArrayPointer[j];
             }
           //Title
             tempString = tempTask->getTitle();
             for(int j = 0; j < tempString.size(); j++){
                 tempArrayPointer = FileManager::IntToBinary(tempString[j].toLatin1());
-                for(int k = 0; k < 8; k++){
+                for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << tempArrayPointer[k];
                 }
             }
             for(int j = tempString.size(); j < 20; j++){
-                for(int k = 0; k < 8; k++){
+                for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << 0;
                 }
             }
@@ -202,38 +204,38 @@ void Project::saveProject(QString currentSavePath){
             tempString = projectTasks[i]->getText();
             for(int j = 0; j < tempString.size(); j++){
                 tempArrayPointer = FileManager::IntToBinary(tempString[j].toLatin1());
-                for(int k = 0; k < 8; k++){
+                for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << tempArrayPointer[k];
                 }
             }
             for(int j = tempString.size(); j < 140; j++){
-                for(int k = 0; k < 8; k++){
+                for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << 0;
                 }
             }
           //Completed
             if(tempTask->isCompleted()){
                 tempArrayPointer = FileManager::IntToBinary(COMPLETED);
-                for(int j = 0; j < 8; j++){
+                for(int j = 0; j < CHAR_OFFSET; j++){
                     writeOnFile << tempArrayPointer[j];
                 }
             }
             else{
                 tempArrayPointer = FileManager::IntToBinary(UNCOMPLETED);
-                for(int j = 0; j < 8; j++){
+                for(int j = 0; j < CHAR_OFFSET; j++){
                     writeOnFile << tempArrayPointer[j];
                 }
             }
           //MasterId
             if(tempTask->getMaster()){
                 tempArrayPointer = FileManager::IntToBinary(tempTask->getMaster()->getId());
-                for(int j = 0; j < 8; j++){
+                for(int j = 0; j < NUM_OFFSET; j++){
                     writeOnFile << tempArrayPointer[j];
                 }
             }
             else{
                 tempArrayPointer = FileManager::IntToBinary(tempTask->getId());
-                for(int j = 0; j < 8; j++){
+                for(int j = 0; j < NUM_OFFSET; j++){
                     writeOnFile << tempArrayPointer[j];
                 }
             }
@@ -247,118 +249,10 @@ void Project::saveProject(QString currentSavePath){
 
 }
 
-/* Debug function for loading a project from a file
-bool Project::loadProjectFromFile(QString openFilePath){
-    QString projPath = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
-    QFile filePath(projPath);
+/*
+ * Debug function for loading a project from a file
+ */
 
-    QString tempString = "";
-    QString fileString;
-    qint32 tempNumber = 0;
-    int tempByteArray[8];
-
-    Task* masterTask;
-
-    qint32 fileIterator = 0;
-
-    if(filePath.open(QIODevice::ReadOnly)){
-        projectTasks.clear();
-        QTextStream readFromFile(&filePath);
-        fileString = readFromFile.readAll();
-      //Title
-        for(; fileIterator < 30 * 8; fileIterator+=8){
-            for(int j = 0; j < 8; j++){
-                tempByteArray[j] = fileString[fileIterator + j].digitValue();
-            }
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            if(tempNumber != 0){
-                tempString.append(QChar(tempNumber));
-            }
-        }
-        projectTitle = tempString;
-        tempString.clear();
-      //Tasks
-          //ID
-        while(fileIterator < fileString.size() ){
-            Task* tempTask = new Task();
-            for(int i = 0; i < 8; i++){
-                tempByteArray[i] = fileString[fileIterator + i].digitValue();
-            }
-
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            tempTask->setId(tempNumber);
-            fileIterator += 8;
-
-          //Title
-            for(int i = 0; i < 20; i++){
-                for(int j = 0; j < 8; j++){
-                    tempByteArray[j] = fileString[fileIterator + j].digitValue();
-                }
-                tempNumber = FileManager::BinaryToInt(tempByteArray);
-                if(tempNumber != 0){
-                    tempString.append(QChar(tempNumber));
-                }
-
-                fileIterator += 8;
-            }
-            tempTask->setTitle(tempString);
-            tempString.clear();
-          //Text
-            for(int i = 0; i < 140; i++){
-                for(int j = 0; j < 8; j++){
-                    tempByteArray[j] = fileString[fileIterator + j].digitValue();
-                }
-                tempNumber = FileManager::BinaryToInt(tempByteArray);
-                if(tempNumber != 0){
-                    tempString.append(QChar(tempNumber));
-                }
-
-                fileIterator += 8;
-            }
-            tempTask->setText(tempString);
-            tempString.clear();
-          //Completed
-            for(int j = 0; j < 8; j++){
-                tempByteArray[j] = fileString[fileIterator + j].digitValue();
-            }
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            if(tempNumber == 43){
-                tempTask->setCompleted(true);
-            }
-            else{
-                tempTask->setCompleted(false);
-            }
-
-            fileIterator += 8;
-          //MasterID
-            for(int j = 0; j < 8; j++){
-                tempByteArray[j] = fileString[fileIterator + j].digitValue();
-            }
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            if(tempNumber != tempTask->getId()){
-                if((masterTask = searchById(tempNumber))){
-                    tempTask->setMaster(masterTask);
-                    masterTask->addChild(tempTask);
-                }
-            }
-            else{
-                tempTask->setMaster(0);
-            }
-
-            addTaskAsChildren(tempTask);
-
-            fileIterator += 8;
-        }
-        return 1;
-    }
-    else{
-        QMessageBox errorWindow(QMessageBox::Warning, "Warning!", "The project hasn't been loaded correctly!", QMessageBox::Ok);
-        errorWindow.exec();
-        return 0;
-    }
-
-}
-*/
 std::deque<Task *> Project::getProjectTasks(){
   return projectTasks;
 }
