@@ -11,8 +11,9 @@
 
 #define COMPLETED 43
 #define UNCOMPLETED 45
-#define CHAR_OFFSET CHAR_OFFSET
-#define NUM_OFFSET CHAR_OFFSET
+
+//#define CHAR_OFFSET
+//#define NUM_OFFSET
 
 Project::Project(){
 
