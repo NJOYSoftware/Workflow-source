@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <QString>
 
-#define NUM_OFFSET 8
+#define NUM_OFFSET 4
 #define CHAR_OFFSET 2
 
 namespace FileManager
@@ -13,13 +13,11 @@ namespace FileManager
 
     int* IntToBinary(qint32 Number);
 
-    qint32* QCharToHexa(QChar array[NUM_OFFSET]);
+    qint32 QCharToHexa(QChar newChar);
+    qint32 QCharToInt(QChar array[], qint32 offset);
 
-    qint32 HexaToInt(qint32 array[]);
-
-    qint32* intToHexa(qint32 Number);
-
-    QChar* HexaToQChar(qint32 array[CHAR_OFFSET]);
+    QChar *NumberToQChar(qint32 Number);
+    QChar *CharToQChar(char Char);
 }
 
 #endif // FILEMANAGER_HPP

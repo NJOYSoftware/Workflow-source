@@ -12,9 +12,6 @@
 #define COMPLETED 43
 #define UNCOMPLETED 45
 
-//#define CHAR_OFFSET
-//#define NUM_OFFSET
-
 Project::Project(){
 
 }
@@ -43,125 +40,13 @@ bool Project::getModified(){
     return modified;
 }
 
-bool Project::loadProject(){
-    QString projPath = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
-    QFile filePath(projPath);
-
-    QString tempString = "";
-    QString fileString;
-    qint32 tempNumber = 0;
-    int tempByteArray[CHAR_OFFSET];
-
-    Task* masterTask;
-
-    qint32 fileIterator = 0;
-
-    if(filePath.open(QIODevice::ReadOnly)){
-        projectTasks.clear();
-        QTextStream readFromFile(&filePath);
-        fileString = readFromFile.readAll();
-      //Title
-        for(; fileIterator < 30 * CHAR_OFFSET; fileIterator+=CHAR_OFFSET){
-            for(int j = 0; j < CHAR_OFFSET; j++){
-                tempByteArray[j] = fileString[fileIterator + j].digitValue();
-            }
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            if(tempNumber != 0){
-                tempString.append(QChar(tempNumber));
-            }
-        }
-        projectTitle = tempString;
-        tempString.clear();
-      //Tasks
-          //ID
-        while(fileIterator < fileString.size() ){
-            Task* tempTask = new Task();
-            for(int i = 0; i < NUM_OFFSET; i++){
-                tempByteArray[i] = fileString[fileIterator + i].digitValue();
-            }
-
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            tempTask->setId(tempNumber);
-            fileIterator += NUM_OFFSET;
-
-          //Title
-            for(int i = 0; i < 20; i++){
-                for(int j = 0; j < CHAR_OFFSET; j++){
-                    tempByteArray[j] = fileString[fileIterator + j].digitValue();
-                }
-                tempNumber = FileManager::BinaryToInt(tempByteArray);
-                if(tempNumber != 0){
-                    tempString.append(QChar(tempNumber));
-                }
-
-                fileIterator += CHAR_OFFSET;
-            }
-            tempTask->setTitle(tempString);
-            tempString.clear();
-          //Text
-            for(int i = 0; i < 140; i++){
-                for(int j = 0; j < CHAR_OFFSET; j++){
-                    tempByteArray[j] = fileString[fileIterator + j].digitValue();
-                }
-                tempNumber = FileManager::BinaryToInt(tempByteArray);
-                if(tempNumber != 0){
-                    tempString.append(QChar(tempNumber));
-                }
-
-                fileIterator += CHAR_OFFSET;
-            }
-            tempTask->setText(tempString);
-            tempString.clear();
-          //Completed
-            for(int j = 0; j < CHAR_OFFSET; j++){
-                tempByteArray[j] = fileString[fileIterator + j].digitValue();
-            }
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            if(tempNumber == 43){
-                tempTask->setCompleted(true);
-            }
-            else{
-                tempTask->setCompleted(false);
-            }
-
-            fileIterator += CHAR_OFFSET;
-          //MasterID
-            for(int j = 0; j < NUM_OFFSET; j++){
-                tempByteArray[j] = fileString[fileIterator + j].digitValue();
-            }
-            tempNumber = FileManager::BinaryToInt(tempByteArray);
-            if(tempNumber != tempTask->getId()){
-                if((masterTask = searchById(tempNumber))){
-                    tempTask->setMaster(masterTask);
-                    masterTask->addChild(tempTask);
-                }
-            }
-            else{
-                tempTask->setMaster(0);
-            }
-
-            addTaskAsChildren(tempTask);
-
-            fileIterator += NUM_OFFSET;
-        }
-        savePath = projPath;
-        return 0;
-    }
-    else{
-        QMessageBox errorWindow(QMessageBox::Warning, "Warning!", "The project hasn't been loaded correctly!", QMessageBox::Ok);
-        errorWindow.exec();
-        return 1;
-    }
-
-}
-
 void Project::saveProject(QString currentSavePath){
     if(currentSavePath.isEmpty()){
         currentSavePath = QFileDialog::getSaveFileName(nullptr, QString(getTitle()), QString(""), QString("Workflow Project File ( *.wfp)"));
         savePath = currentSavePath;
     }
     QFile filePath(currentSavePath);
-    int* tempArrayPointer;
+    QChar* tempArrayPointer;
     QString tempString;
     Task* tempTask;
 
@@ -169,7 +54,7 @@ void Project::saveProject(QString currentSavePath){
         QTextStream writeOnFile(&filePath);
       //Title
         for(int i = 0; i < projectTitle.size(); i++){
-            tempArrayPointer = FileManager::IntToBinary(projectTitle[i].toLatin1());
+            tempArrayPointer = FileManager::CharToQChar(projectTitle[i].toLatin1());
             for(int j = 0; j < CHAR_OFFSET; j++){
                 writeOnFile << tempArrayPointer[j];
               }
@@ -184,14 +69,14 @@ void Project::saveProject(QString currentSavePath){
         for(unsigned i = 0; i < projectTasks.size(); i++){
             tempTask = projectTasks[i];
           //ID
-            tempArrayPointer = FileManager::IntToBinary(tempTask->getId());
+            tempArrayPointer = FileManager::NumberToQChar(tempTask->getId());
             for(int j = 0; j < NUM_OFFSET; j++){
                 writeOnFile << tempArrayPointer[j];
             }
           //Title
             tempString = tempTask->getTitle();
             for(int j = 0; j < tempString.size(); j++){
-                tempArrayPointer = FileManager::IntToBinary(tempString[j].toLatin1());
+                tempArrayPointer = FileManager::CharToQChar(tempString[j].toLatin1());
                 for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << tempArrayPointer[k];
                 }
@@ -204,7 +89,7 @@ void Project::saveProject(QString currentSavePath){
           //Text
             tempString = projectTasks[i]->getText();
             for(int j = 0; j < tempString.size(); j++){
-                tempArrayPointer = FileManager::IntToBinary(tempString[j].toLatin1());
+                tempArrayPointer = FileManager::CharToQChar(tempString[j].toLatin1());
                 for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << tempArrayPointer[k];
                 }
@@ -215,30 +100,14 @@ void Project::saveProject(QString currentSavePath){
                 }
             }
           //Completed
-            if(tempTask->isCompleted()){
-                tempArrayPointer = FileManager::IntToBinary(COMPLETED);
-                for(int j = 0; j < CHAR_OFFSET; j++){
-                    writeOnFile << tempArrayPointer[j];
-                }
-            }
-            else{
-                tempArrayPointer = FileManager::IntToBinary(UNCOMPLETED);
-                for(int j = 0; j < CHAR_OFFSET; j++){
-                    writeOnFile << tempArrayPointer[j];
-                }
+            tempArrayPointer = FileManager::CharToQChar((tempTask->isCompleted()) ? COMPLETED : UNCOMPLETED);
+            for(int j = 0; j < CHAR_OFFSET; j++){
+                writeOnFile << tempArrayPointer[j];
             }
           //MasterId
-            if(tempTask->getMaster()){
-                tempArrayPointer = FileManager::IntToBinary(tempTask->getMaster()->getId());
-                for(int j = 0; j < NUM_OFFSET; j++){
-                    writeOnFile << tempArrayPointer[j];
-                }
-            }
-            else{
-                tempArrayPointer = FileManager::IntToBinary(tempTask->getId());
-                for(int j = 0; j < NUM_OFFSET; j++){
-                    writeOnFile << tempArrayPointer[j];
-                }
+            tempArrayPointer = ((tempTask->getMaster() != NULL) ? FileManager::NumberToQChar(tempTask->getMaster()->getId()) : FileManager::NumberToQChar(tempTask->getId()));
+            for(int j = 0; j < NUM_OFFSET; j++){
+                writeOnFile << tempArrayPointer[j];
             }
         }
         modified = 0;
@@ -247,7 +116,98 @@ void Project::saveProject(QString currentSavePath){
         QMessageBox errorWindow(QMessageBox::Warning, "Warning!", "The project hasn't been saved correctly!", QMessageBox::Ok);
         errorWindow.exec();
       }
+}
 
+bool Project::loadProject(){
+    QString projPath = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
+    QFile filePath(projPath);
+
+    QString tempString = "";
+    QString fileString;
+    qint32 tempNumber = 0;
+
+    Task* masterTask;
+
+    qint32 fileIterator = 0;
+
+    if(filePath.open(QIODevice::ReadOnly)){
+        projectTasks.clear();
+        QTextStream readFromFile(&filePath);
+        fileString = readFromFile.readAll();
+      //Title
+        for(; fileIterator < 30 * CHAR_OFFSET; fileIterator+=CHAR_OFFSET){
+            QChar tempArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
+            tempNumber = FileManager::QCharToInt(tempArray, CHAR_OFFSET);
+            if(tempNumber != 0){
+                tempString.append(QChar(tempNumber));
+            }
+        }
+        projectTitle = tempString;
+        tempString.clear();
+      //Tasks
+          //ID
+        while(fileIterator < fileString.size() ){
+            Task* tempTask = new Task();
+            QChar tempIDArray[NUM_OFFSET];
+            for(int i = 0; i < NUM_OFFSET; i++){
+                tempIDArray[i] = fileString.at(fileIterator + i);
+            }
+            tempNumber = FileManager::QCharToInt(tempIDArray, NUM_OFFSET);
+            tempTask->setId(tempNumber);
+            fileIterator += NUM_OFFSET;
+          //Title
+            for(int i = 0; i < 20; i++){
+                QChar tempArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
+                tempNumber = FileManager::QCharToInt(tempArray, CHAR_OFFSET);
+                if(tempNumber != 0){
+                    tempString.append(QChar(tempNumber));
+                }
+                fileIterator += CHAR_OFFSET;
+            }
+            tempTask->setTitle(tempString);
+            tempString.clear();
+          //Text
+            for(int i = 0; i < 140; i++){
+                QChar tempArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
+                tempNumber = FileManager::QCharToInt(tempArray, CHAR_OFFSET);
+                if(tempNumber != 0){
+                    tempString.append(QChar(tempNumber));
+                }
+                fileIterator += CHAR_OFFSET;
+            }
+            tempTask->setText(tempString);
+            tempString.clear();
+          //Completed
+            QChar tempCompletedArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
+            tempNumber = FileManager::QCharToInt(tempCompletedArray, CHAR_OFFSET);
+            tempTask->setCompleted((tempNumber == 43) ? true : false);
+            fileIterator += CHAR_OFFSET;
+          //MasterID
+            QChar tempMasterArray[NUM_OFFSET];
+            for(int j = 0; j < NUM_OFFSET; j++){
+                tempMasterArray[j] = fileString[fileIterator + j];
+            }
+            tempNumber = FileManager::QCharToInt(tempMasterArray, NUM_OFFSET);
+            if(tempNumber != tempTask->getId()){
+                if((masterTask = searchById(tempNumber))){
+                    tempTask->setMaster(masterTask);
+                    masterTask->addChild(tempTask);
+                }
+            }
+            else{
+                tempTask->setMaster(0);
+            }
+            addTaskAsChildren(tempTask);
+            fileIterator += NUM_OFFSET;
+        }
+        savePath = projPath;
+        return 0;
+    }
+    else{
+        QMessageBox errorWindow(QMessageBox::Warning, "Warning!", "The project hasn't been loaded correctly!", QMessageBox::Ok);
+        errorWindow.exec();
+        return 1;
+    }
 }
 
 /*

@@ -21,6 +21,7 @@
 #include <QCloseEvent>
 
 #define CHILDREN_SCENE_COUNT 4
+#define MAX_SIZE 65536
 
 Project currentProj;
 Task* currentTask;
@@ -144,12 +145,18 @@ void MainWindow::on_btnComplete_clicked()
 
 void MainWindow::on_btnAddChild_clicked()
 {
-  Task* child = currentTask->addChild(currentProj.getProjectTasks().size(), currentTask);
-  if(child){
-      currentProj.addTaskAsChildren(child);
-      currentProj.setModified(true);
-  }
-  updateWindow();
+    if(currentProj.getProjectTasks().size() < MAX_SIZE){
+        Task* child = currentTask->addChild(currentProj.getProjectTasks().size(), currentTask);
+        if(child){
+            currentProj.addTaskAsChildren(child);
+            currentProj.setModified(true);
+        }
+        updateWindow();
+    }
+    else{
+        QMessageBox errorMaxSize(QMessageBox::Warning, "Error: Max size reached!", "Your project reached the maximum size allowed. You can no longer create new Tasks.");
+        errorMaxSize.exec();
+    }
 }
 
 void MainWindow::on_taskChanged(){
