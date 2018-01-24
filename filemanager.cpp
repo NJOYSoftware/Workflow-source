@@ -32,64 +32,74 @@ int* FileManager::IntToBinary(qint32 Number){
     return binaryNumber;
 }
 
-qint32 *FileManager::QCharToHexa(QChar array[CHAR_OFFSET]){
-    static int hexanumber[CHAR_OFFSET];
-    for(int i = 0; i < CHAR_OFFSET; i++){
-        hexanumber[i] = 0;
-    }
-    for(int i = 0; i < CHAR_OFFSET; i++){
-        char tempChar = array[i].toUpper().toLatin1();
-        switch(tempChar){
-            case 'A': hexanumber[i] = 10; break;
-            case 'B': hexanumber[i] = 11; break;
-            case 'C': hexanumber[i] = 12; break;
-            case 'D': hexanumber[i] = 13; break;
-            case 'E': hexanumber[i] = 14; break;
-            case 'F': hexanumber[i] = 15; break;
-            default: hexanumber[i] = array[i].digitValue();
-        }
+qint32 FileManager::QCharToHexa(QChar newChar){
+    qint32 hexanumber;
+    hexanumber = 0;
+    char tempChar = newChar.toUpper().toLatin1();
+    switch(tempChar){
+        case 'A': hexanumber = 10; break;
+        case 'B': hexanumber = 11; break;
+        case 'C': hexanumber = 12; break;
+        case 'D': hexanumber = 13; break;
+        case 'E': hexanumber = 14; break;
+        case 'F': hexanumber = 15; break;
+        default: hexanumber = newChar.digitValue();
     }
     return hexanumber;
 }
 
-qint32 FileManager::HexaToInt(qint32 array[2]){
+qint32 FileManager::QCharToInt(QChar array[], qint32 offset){
     qint32 Number = 0;
-    for(int i = 0; i < CHAR_OFFSET; i++){
-        Number += pow(16, 1 - i) * array[i];
+    for(int i = 0; i < offset; i++){
+        Number += FileManager::QCharToHexa(array[i])*pow(16, offset - i - 1);
     }
     return Number;
 }
 
-qint32* FileManager::intToHexa(qint32 Number){
-    static qint32 array[CHAR_OFFSET];
-    for(int i = 0; i < CHAR_OFFSET; i++){
-        array[i] = 0;
+QChar *FileManager::NumberToQChar(qint32 Number){
+    static QChar array[NUM_OFFSET];
+    for(int i = 0; i < NUM_OFFSET; i++){
+        array[i] = '0';
     }
     if(Number != 0){
-        qint32 numOrder = log2(Number)/4 + 1;
-        for(int i = numOrder - 1; i >= 0; i++){
-            array[i] = Number % 16;
-            Number/=16;
+        qint32 numOrder = log2(Number)/log2(16);
+        qint32 remainder = 0;
+        for(int i = numOrder; i >= 0; i--, Number /= 16){
+            remainder = Number % 16;
+            switch(remainder){
+                case 10: array[i] = 'A'; break;
+                case 11: array[i] = 'B'; break;
+                case 12: array[i] = 'C'; break;
+                case 13: array[i] = 'D'; break;
+                case 14: array[i] = 'E'; break;
+                case 15: array[i] = 'F'; break;
+                default: array[i] = '0' + remainder;
+            }
         }
     }
     return array;
 }
 
-QChar* FileManager::HexaToQChar(qint32 array[CHAR_OFFSET]){
-    static QChar charNumber[CHAR_OFFSET];
+QChar *FileManager::CharToQChar(char Char){
+    static QChar array[CHAR_OFFSET];
     for(int i = 0; i < CHAR_OFFSET; i++){
-        charNumber[i] = 0;
+        array[i] = '0';
     }
-    for(int i = 0; i < CHAR_OFFSET; i++){
-        switch(array[i]){
-            case 10: charNumber[i] = QChar('A'); break;
-            case 11: charNumber[i] = QChar('B'); break;
-            case 12: charNumber[i] = QChar('C'); break;
-            case 13: charNumber[i] = QChar('D'); break;
-            case 14: charNumber[i] = QChar('E'); break;
-            case 15: charNumber[i] = QChar('F'); break;
-            default: charNumber[i] = QChar('0' + array[i]);
+    if(Char != 0){
+        qint32 numOrder = log2(Char)/log2(16);
+        qint32 remainder = 0;
+        for(int i = numOrder; i >= 0; i--, Char /= 16){
+            remainder = Char % 16;
+            switch(remainder){
+                case 10: array[i] = 'A'; break;
+                case 11: array[i] = 'B'; break;
+                case 12: array[i] = 'C'; break;
+                case 13: array[i] = 'D'; break;
+                case 14: array[i] = 'E'; break;
+                case 15: array[i] = 'F'; break;
+                default: array[i] = '0' + remainder;
+            }
         }
     }
-    return charNumber;
+    return array;
 }
