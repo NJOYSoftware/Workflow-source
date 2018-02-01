@@ -143,10 +143,18 @@ void MainWindow::on_btnComplete_clicked()
     updateWindow();
 }
 
+static qint32 firstFreeID(){
+    qint32 id = 0;
+    while(currentProj.searchById(id) != NULL){
+        id++;
+    }
+    return id;
+}
+
 void MainWindow::on_btnAddChild_clicked()
 {
     if(currentProj.getProjectTasks().size() < MAX_SIZE){
-        Task* child = currentTask->addChild(currentProj.getProjectTasks().size(), currentTask);
+        Task* child = currentTask->addChild(firstFreeID(), currentTask);
         if(child){
             currentProj.addTaskAsChildren(child);
             currentProj.setModified(true);
@@ -235,21 +243,26 @@ void MainWindow::setWindowTexts(){
 
 void MainWindow::on_btnNewMaster_clicked()
 {
-    if( !currentTask->getMaster()){
-        Task* child = currentTask->addMaster(currentProj.getProjectTasks().size() );
-        if(child){
-            currentProj.addTaskAsMaster(child);
-            currentTask = child;
-            currentProj.setModified(true);
+    if(currentProj.getProjectTasks().size() < MAX_SIZE){
+        if( !currentTask->getMaster()){
+            Task* child = currentTask->addMaster(firstFreeID());
+            if(child){
+                currentProj.addTaskAsMaster(child);
+                currentTask = child;
+                currentProj.setModified(true);
+                childrenPage = 0;
+                updateWindow();
+            }
+        }
+        else{
+            QMessageBox newMasterBox(QMessageBox::Warning, "Attention", "This current Task has already a Master Task");
+            newMasterBox.exec();
         }
     }
     else{
-        QMessageBox newMasterBox(QMessageBox::Warning, "Attention", "This current Task has already a Master Task");
+        QMessageBox newMasterBox(QMessageBox::Warning, "Error: Max size reached!", "Your project reached the maximum size allowed. You can no longer create new Tasks.");
         newMasterBox.exec();
     }
-
-    childrenPage = 0;
-    updateWindow();
 }
 
 void MainWindow::on_actionHelp_triggered()
