@@ -131,16 +131,25 @@ void MainWindow::on_btnModify_clicked()
 }
 
 void MainWindow::on_btnComplete_clicked()
-{
-    if(currentTask->isCompletable()){
-        currentTask->setCompleted(true);
-        currentProj.setModified(true);
+{   if(!currentTask->isCompleted()){
+        if(currentTask->isCompletable()){
+            currentTask->setCompleted(true);
+            currentProj.setModified(true);
+            ui->btnComplete->setText("Uncomplete Task");
+            updateWindow();
+        }
+        else{
+            QMessageBox errorBox(QMessageBox::Warning, "Error", "The sub task are not completed. Please complete them first");
+            errorBox.exec();
+        }
     }
     else{
-        QMessageBox errorBox(QMessageBox::Warning, "Error", "The sub task are not completed. Please complete them first");
-        errorBox.exec();
+        currentTask->setCompleted(false);
+        currentProj.setModified(true);
+        ui->btnComplete->setText("Complete Task");
+        updateWindow();
     }
-    updateWindow();
+
 }
 
 static qint32 firstFreeID(){
