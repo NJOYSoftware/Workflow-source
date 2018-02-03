@@ -319,10 +319,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>820</x>
+      <x>830</x>
       <y>80</y>
-      <width>161</width>
-      <height>25</height>
+      <width>140</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">
@@ -401,10 +401,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>330</y>
-      <width>131</width>
-      <height>31</height>
+      <x>660</x>
+      <y>80</y>
+      <width>140</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">
@@ -535,6 +535,22 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="interactive">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDeleteTask">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>330</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Task</string>
     </property>
    </widget>
   </widget>

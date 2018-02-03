@@ -69,6 +69,7 @@ void MainWindow::on_actionLoad_triggered()
             delete(information);
             return;
         }
+        delete(information);
     }
     if(!currentProj.loadProject()){
         ui->lblProjectTitle->setText(currentProj.getTitle() );
@@ -101,6 +102,7 @@ void MainWindow::on_actionNew_Project_triggered(){
             delete(information);
             return;
         }
+        delete(information);
     }
         currentTask = new Task();
         currentProj.getProjectTasks().clear();
@@ -209,6 +211,7 @@ void MainWindow::enableCurrentButtons(){
   ui->btnAddChild->setEnabled(true);
   ui->btnNewMaster->setEnabled(true);
   ui->btnPrevTask->setEnabled(true);
+  ui->btnDeleteTask->setEnabled(true);
   if(childrenPage < abs((long long int)(currentTask->getChildren().size() - 1)) / CHILDREN_SCENE_COUNT){
       ui->btnNextPage->setEnabled(true);
   }
@@ -398,4 +401,38 @@ void MainWindow::closeEvent(QCloseEvent *event){
     else{
         event->accept();
     }
+}
+
+
+
+static void deleteTask(Task *t){
+    for(int i = t->getChildren().size() - 1; i >= 0; i--){
+        deleteTask(t->getChildren()[i]);
+    }
+    currentProj.deleteTask(currentProj.taskIndexByID(t->getId()));
+    delete(t);
+}
+
+static void deleteCurrentTask(){
+    Task *tmp = currentTask;
+    if(currentTask->getMaster() != Q_NULLPTR && currentProj.getProjectTasks().size() > 1){
+        currentTask = currentTask->getMaster();
+        currentTask->deleteChild(currentTask->searchChild(tmp->getId()));
+        deleteTask(tmp);
+    }
+    else{
+        QMessageBox errorBox(QMessageBox::Warning, "Warning", "Please add a master Task to this task in order to delete this task.");
+        errorBox.exec();
+    }
+}
+
+void MainWindow::on_btnDeleteTask_clicked()
+{
+    QMessageBox *information = new QMessageBox("Attention!", "Do you want to delete this Task and all of its sub-Tasks? This process cannot be reversed. They will be gone, forever!", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
+    information->exec();
+    if(information->result() == QMessageBox::Ok){
+        deleteCurrentTask();
+        updateWindow();
+    }
+    delete(information);
 }

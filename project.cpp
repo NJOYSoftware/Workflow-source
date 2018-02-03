@@ -239,3 +239,15 @@ Task* Project::searchById(qint32 Id){
     }
     return Q_NULLPTR;
 }
+
+qint32 Project::taskIndexByID(qint32 id){
+    qint32 indx = 0;
+    while(projectTasks[indx]->getId() != id && indx < projectTasks.size()){
+        indx++;
+    }
+    return ((projectTasks[indx]->getId() == id) ? indx : -1);
+}
+
+void Project::deleteTask(qint32 indx){
+    projectTasks.erase(projectTasks.begin() + indx);
+}

@@ -50,6 +50,9 @@ public:
   void drawAsChild(QGraphicsScene *childScene);
   void drawAsCurrent(QGraphicsScene* currentScene);
 
+  qint32 searchChild(qint32 id);
+  void deleteChild(qint32 indx);
+
 };
 
 #include "taskwindow.hpp"

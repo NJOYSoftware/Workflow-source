@@ -34,6 +34,8 @@ public:
     void addTaskAsMaster(Task *newTask);
     std::deque<Task *> getProjectTasks();
     Task* searchById(qint32 Id);
+    qint32 taskIndexByID(qint32 id);
+    void deleteTask(qint32 indx);
 };
 
 #endif // PROJECT_HPP

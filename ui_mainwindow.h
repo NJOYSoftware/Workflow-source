@@ -60,6 +60,7 @@ public:
     QLabel *lblCurrentTitle;
     QTextEdit *tedCurrentText;
     QGraphicsView *grvCurrentTask;
+    QPushButton *btnDeleteTask;
     QMenuBar *menuBar;
     QMenu *menuMenu;
     QMenu *menuHelp;
@@ -195,7 +196,7 @@ public:
         btnNewMaster = new QPushButton(centralWidget);
         btnNewMaster->setObjectName(QStringLiteral("btnNewMaster"));
         btnNewMaster->setEnabled(false);
-        btnNewMaster->setGeometry(QRect(820, 80, 161, 25));
+        btnNewMaster->setGeometry(QRect(830, 80, 140, 30));
         btnPreviousPage = new QPushButton(centralWidget);
         btnPreviousPage->setObjectName(QStringLiteral("btnPreviousPage"));
         btnPreviousPage->setEnabled(false);
@@ -215,7 +216,7 @@ public:
         btnAddChild = new QPushButton(centralWidget);
         btnAddChild->setObjectName(QStringLiteral("btnAddChild"));
         btnAddChild->setEnabled(false);
-        btnAddChild->setGeometry(QRect(620, 330, 131, 31));
+        btnAddChild->setGeometry(QRect(660, 80, 140, 30));
         btnComplete = new QPushButton(centralWidget);
         btnComplete->setObjectName(QStringLiteral("btnComplete"));
         btnComplete->setEnabled(false);
@@ -251,6 +252,10 @@ public:
         grvCurrentTask->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         grvCurrentTask->setBackgroundBrush(brush);
         grvCurrentTask->setInteractive(false);
+        btnDeleteTask = new QPushButton(centralWidget);
+        btnDeleteTask->setObjectName(QStringLiteral("btnDeleteTask"));
+        btnDeleteTask->setEnabled(false);
+        btnDeleteTask->setGeometry(QRect(630, 330, 120, 30));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -327,6 +332,7 @@ public:
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;\"><br /></p></body></html>", Q_NULLPTR));
+        btnDeleteTask->setText(QApplication::translate("MainWindow", "Delete Task", Q_NULLPTR));
         menuMenu->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", Q_NULLPTR));

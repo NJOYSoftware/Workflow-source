@@ -68,6 +68,8 @@ private slots:
 
     void on_actionSave_Project_as_triggered();
 
+    void on_btnDeleteTask_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

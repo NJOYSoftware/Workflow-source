@@ -128,3 +128,14 @@ Task* Task::addMaster(qint32 nextId){
   }
 }
 
+qint32 Task::searchChild(qint32 id){
+    qint32 indx = 0;
+    while(children[indx]->getId() != id && indx < children.size()){
+        indx++;
+    }
+    return indx;
+}
+
+void Task::deleteChild(qint32 indx){
+    children.erase(children.begin() + indx);
+}
