@@ -25,7 +25,7 @@ public:
     void setModified(bool isModified);
     bool getModified();
 
-    bool loadProject();
+    bool loadProject(QString projString = "");
     //Debug for new feature
     //bool loadProjectFromFile(QString openFilePath);
     void saveProject(QString currentSavePath = "");
@@ -34,7 +34,7 @@ public:
     void addTaskAsMaster(Task *newTask);
     std::deque<Task *> getProjectTasks();
     Task* searchById(qint32 Id);
-    qint32 taskIndexByID(qint32 id);
+    quint32 taskIndexByID(qint32 id);
     void deleteTask(qint32 indx);
 };
 

@@ -24,12 +24,12 @@
 #define MAX_SIZE 65536
 
 Project currentProj;
-Task* currentTask;
+Task* currentTask = Q_NULLPTR;
 TaskGraphicsScene* currentScene;
 TaskGraphicsScene* childrenScenes[CHILDREN_SCENE_COUNT];
 qint32 childrenPage = 0;
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QString projString, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -53,6 +53,12 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     ui->lblDepTree->setText("/");
+
+    if(!projString.isEmpty()){
+        currentProj.loadProject(projString);
+        currentTask = currentProj.getProjectTasks().front();
+        updateWindow();
+    }
 }
 
 MainWindow::~MainWindow()
@@ -212,7 +218,7 @@ void MainWindow::enableCurrentButtons(){
   ui->btnNewMaster->setEnabled(true);
   ui->btnPrevTask->setEnabled(true);
   ui->btnDeleteTask->setEnabled(true);
-  if(childrenPage < abs((long long int)(currentTask->getChildren().size() - 1)) / CHILDREN_SCENE_COUNT){
+  if(childrenPage < abs((qint32)(currentTask->getChildren().size() - 1)) / CHILDREN_SCENE_COUNT){
       ui->btnNextPage->setEnabled(true);
   }
   else{
@@ -367,13 +373,6 @@ void MainWindow::updatePageLabel(){
 
     ui->lblChildrenPage->setText(label);
 }
-
-/* NEW feature Debug
-void MainWindow::openFile(){
-
-}
-
-*/
 
 void MainWindow::on_actionSearchNode_triggered()
 {

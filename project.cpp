@@ -12,6 +12,13 @@
 #define COMPLETED 43
 #define UNCOMPLETED 45
 
+//Modify these numbers if you want to tweaks string length
+//N.B. Any modification will make older projects not compatible and the project file will be larger
+#define MAX_PROJ_TITLE_LENGTH 30
+#define MAX_TASK_TITLE_LENGTH 20
+#define MAX_TASK_TEXT_LENGTH  140
+
+
 Project::Project(){
 
 }
@@ -59,7 +66,7 @@ void Project::saveProject(QString currentSavePath){
                 writeOnFile << tempArrayPointer[j];
               }
         }
-        for (unsigned i = projectTitle.size(); i < 30; i++){
+        for (unsigned i = projectTitle.size(); i < MAX_PROJ_TITLE_LENGTH; i++){
           //NULL writer
             for(int i = 0; i < CHAR_OFFSET; i++){
                 writeOnFile << 0;
@@ -81,7 +88,7 @@ void Project::saveProject(QString currentSavePath){
                     writeOnFile << tempArrayPointer[k];
                 }
             }
-            for(int j = tempString.size(); j < 20; j++){
+            for(int j = tempString.size(); j < MAX_TASK_TITLE_LENGTH; j++){
                 for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << 0;
                 }
@@ -94,7 +101,7 @@ void Project::saveProject(QString currentSavePath){
                     writeOnFile << tempArrayPointer[k];
                 }
             }
-            for(int j = tempString.size(); j < 140; j++){
+            for(int j = tempString.size(); j < MAX_TASK_TEXT_LENGTH; j++){
                 for(int k = 0; k < CHAR_OFFSET; k++){
                     writeOnFile << 0;
                 }
@@ -118,9 +125,11 @@ void Project::saveProject(QString currentSavePath){
       }
 }
 
-bool Project::loadProject(){
-    QString projPath = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
-    QFile filePath(projPath);
+bool Project::loadProject(QString projString){
+    if(projString.isEmpty()){
+        projString = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
+    }
+    QFile filePath(projString);
 
     QString tempString = "";
     QString fileString;
@@ -135,7 +144,7 @@ bool Project::loadProject(){
         QTextStream readFromFile(&filePath);
         fileString = readFromFile.readAll();
       //Title
-        for(; fileIterator < 30 * CHAR_OFFSET; fileIterator+=CHAR_OFFSET){
+        for(; fileIterator < MAX_PROJ_TITLE_LENGTH * CHAR_OFFSET; fileIterator+=CHAR_OFFSET){
             QChar tempArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
             tempNumber = FileManager::QCharToInt(tempArray, CHAR_OFFSET);
             if(tempNumber != 0){
@@ -156,7 +165,7 @@ bool Project::loadProject(){
             tempTask->setId(tempNumber);
             fileIterator += NUM_OFFSET;
           //Title
-            for(int i = 0; i < 20; i++){
+            for(int i = 0; i < MAX_TASK_TITLE_LENGTH; i++){
                 QChar tempArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
                 tempNumber = FileManager::QCharToInt(tempArray, CHAR_OFFSET);
                 if(tempNumber != 0){
@@ -167,7 +176,7 @@ bool Project::loadProject(){
             tempTask->setTitle(tempString);
             tempString.clear();
           //Text
-            for(int i = 0; i < 140; i++){
+            for(int i = 0; i < MAX_TASK_TEXT_LENGTH; i++){
                 QChar tempArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
                 tempNumber = FileManager::QCharToInt(tempArray, CHAR_OFFSET);
                 if(tempNumber != 0){
@@ -180,7 +189,7 @@ bool Project::loadProject(){
           //Completed
             QChar tempCompletedArray[] = {fileString.at(fileIterator), fileString.at(fileIterator + 1)};
             tempNumber = FileManager::QCharToInt(tempCompletedArray, CHAR_OFFSET);
-            tempTask->setCompleted((tempNumber == 43) ? true : false);
+            tempTask->setCompleted(tempNumber == COMPLETED);
             fileIterator += CHAR_OFFSET;
           //MasterID
             QChar tempMasterArray[NUM_OFFSET];
@@ -195,12 +204,12 @@ bool Project::loadProject(){
                 }
             }
             else{
-                tempTask->setMaster(0);
+                tempTask->setMaster(Q_NULLPTR);
             }
             addTaskAsChildren(tempTask);
             fileIterator += NUM_OFFSET;
         }
-        savePath = projPath;
+        savePath = projString;
         return 0;
     }
     else{
@@ -209,10 +218,6 @@ bool Project::loadProject(){
         return 1;
     }
 }
-
-/*
- * Debug function for loading a project from a file
- */
 
 std::deque<Task *> Project::getProjectTasks(){
   return projectTasks;
@@ -240,12 +245,12 @@ Task* Project::searchById(qint32 Id){
     return Q_NULLPTR;
 }
 
-qint32 Project::taskIndexByID(qint32 id){
-    qint32 indx = 0;
+quint32 Project::taskIndexByID(qint32 id){
+    quint32 indx = 0;
     while(projectTasks[indx]->getId() != id && indx < projectTasks.size()){
         indx++;
     }
-    return ((projectTasks[indx]->getId() == id) ? indx : -1);
+    return indx;
 }
 
 void Project::deleteTask(qint32 indx){

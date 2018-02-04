@@ -103,7 +103,7 @@ void Task::drawAsChild(QGraphicsScene* childScene){
 
   ChildText* TitleText = new ChildText();
   TitleText->setText(Title);
-  TitleText->setFont(QFont("Helvetica", 16, 50));
+  TitleText->setFont(QFont("Ubuntu", 16, 50));
   childScene->addItem(TitleText);
 
   TitleText->setPos((OUTER_CHILD_WIDTH - TitleText->boundingRect().width())/2, (OUTER_CHILD_HEIGHT - TitleText->boundingRect().height())/2);
@@ -128,8 +128,8 @@ Task* Task::addMaster(qint32 nextId){
   }
 }
 
-qint32 Task::searchChild(qint32 id){
-    qint32 indx = 0;
+quint32 Task::searchChild(qint32 id){
+    quint32 indx = 0;
     while(children[indx]->getId() != id && indx < children.size()){
         indx++;
     }

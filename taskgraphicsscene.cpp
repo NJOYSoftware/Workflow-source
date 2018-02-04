@@ -2,6 +2,7 @@
 
 TaskGraphicsScene::TaskGraphicsScene(Task** currentTask, QObject *parent) : QGraphicsScene(parent){
   currentPointer = currentTask;
+  taskShown = Q_NULLPTR;
 }
 
 void TaskGraphicsScene::setTaskShown(Task *newTask){
@@ -14,7 +15,7 @@ Task* TaskGraphicsScene::getTaskShown(){
 
 void TaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *btnReleased){
   if(btnReleased->button() == Qt::LeftButton){
-      if(taskShown){
+      if(taskShown != Q_NULLPTR){
         *currentPointer = taskShown;
         emit changeTask();
       }

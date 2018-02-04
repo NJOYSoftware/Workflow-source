@@ -8,30 +8,6 @@
 
 using namespace std;
 
-qint32 FileManager::BinaryToInt(int array[]){
-    qint32 Number = 0;
-    for(int i = 0; i < NUM_OFFSET; i++){
-        Number += pow(2, 7-i)*(array[i]);
-    }
-    return Number;
-}
-
-
-int* FileManager::IntToBinary(qint32 Number){
-    static int binaryNumber[NUM_OFFSET];
-    for(int i = 0; i < NUM_OFFSET; i++){
-        binaryNumber[i] = 0;
-    }
-    if(Number != 0){
-        int numberOrder = (int)log2(Number);
-        for (int i = 7; i > 6 - numberOrder; i--){
-            binaryNumber[i] = Number % 2;
-            Number/=2;
-        }
-    }
-    return binaryNumber;
-}
-
 qint32 FileManager::QCharToHexa(QChar newChar){
     qint32 hexanumber;
     hexanumber = 0;
