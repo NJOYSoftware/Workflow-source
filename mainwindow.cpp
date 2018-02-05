@@ -72,10 +72,10 @@ void MainWindow::on_actionLoad_triggered()
         QMessageBox *information = new QMessageBox("Attention!", "Your project hasn't been saved since last changes. If you continue, they will be lost. Continue?", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
         information->exec();
         if(information->result() == QMessageBox::No){
-            delete(information);
+            delete information;
             return;
         }
-        delete(information);
+        delete information;
     }
     if(!currentProj.loadProject()){
         ui->lblProjectTitle->setText(currentProj.getTitle() );
@@ -105,10 +105,10 @@ void MainWindow::on_actionNew_Project_triggered(){
         QMessageBox *information = new QMessageBox("Attention!", "Your project hasn't been saved since last changes. If you continue, they will be lost. Continue?", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
         information->exec();
         if(information->result() == QMessageBox::No){
-            delete(information);
+            delete information;
             return;
         }
-        delete(information);
+        delete information;
     }
         currentTask = new Task();
         currentProj.getProjectTasks().clear();
@@ -125,8 +125,9 @@ void MainWindow::on_actionNew_Project_triggered(){
         else{
             QMessageBox errorBox(QMessageBox::Warning, "Error in creating new project", "New project creation aborted!");
             errorBox.exec();
+            delete currentTask;
         }
-        delete(newTaskWindow);
+        delete newTaskWindow;
 }
 
 void MainWindow::on_btnModify_clicked()
@@ -134,7 +135,7 @@ void MainWindow::on_btnModify_clicked()
     taskWindow* modifyWindow = new taskWindow(currentTask);
     modifyWindow->exec();
     currentProj.setModified(true);
-    delete(modifyWindow);
+    delete modifyWindow;
     updateWindow();
 }
 
@@ -172,7 +173,7 @@ void MainWindow::on_btnAddChild_clicked()
 {
     if(currentProj.getProjectTasks().size() < MAX_SIZE){
         Task* child = currentTask->addChild(firstFreeID(), currentTask);
-        if(child){
+        if(child != Q_NULLPTR){
             currentProj.addTaskAsChildren(child);
             currentProj.setModified(true);
         }
@@ -218,6 +219,7 @@ void MainWindow::enableCurrentButtons(){
   ui->btnNewMaster->setEnabled(true);
   ui->btnPrevTask->setEnabled(true);
   ui->btnDeleteTask->setEnabled(true);
+
   if(childrenPage < abs((qint32)(currentTask->getChildren().size() - 1)) / CHILDREN_SCENE_COUNT){
       ui->btnNextPage->setEnabled(true);
   }
@@ -264,7 +266,7 @@ void MainWindow::on_btnNewMaster_clicked()
     if(currentProj.getProjectTasks().size() < MAX_SIZE){
         if( !currentTask->getMaster()){
             Task* child = currentTask->addMaster(firstFreeID());
-            if(child){
+            if(child != Q_NULLPTR){
                 currentProj.addTaskAsMaster(child);
                 currentTask = child;
                 currentProj.setModified(true);
@@ -311,7 +313,6 @@ void MainWindow::on_actionModify_Project_Title_triggered()
     else{
         QMessageBox projectWarning(QMessageBox::Warning, "Warning", "Title modification has been cancelled!");
         projectWarning.exec();
-        return;
     }
 }
 
@@ -390,38 +391,32 @@ void MainWindow::closeEvent(QCloseEvent *event){
         QMessageBox *information = new QMessageBox("Attention!", "Your project hasn't been saved since last changes. If you continue, they will be lost. Continue?", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
         information->exec();
         if(information->result() == QMessageBox::No){
-            delete(information);
+            delete information;
             event->ignore();
         }
-        else{
-            event->accept();
-        }
-    }
-    else{
-        event->accept();
     }
 }
-
-
 
 static void deleteTask(Task *t){
     for(int i = t->getChildren().size() - 1; i >= 0; i--){
         deleteTask(t->getChildren()[i]);
     }
     currentProj.deleteTask(currentProj.taskIndexByID(t->getId()));
-    delete(t);
+    delete t;
 }
 
-static void deleteCurrentTask(){
+static int deleteCurrentTask(){
     Task *tmp = currentTask;
     if(currentTask->getMaster() != Q_NULLPTR && currentProj.getProjectTasks().size() > 1){
         currentTask = currentTask->getMaster();
         currentTask->deleteChild(currentTask->searchChild(tmp->getId()));
         deleteTask(tmp);
+        return 0;
     }
     else{
         QMessageBox errorBox(QMessageBox::Warning, "Warning", "Please add a master Task to this task in order to delete this task.");
         errorBox.exec();
+        return 1;
     }
 }
 
@@ -430,8 +425,9 @@ void MainWindow::on_btnDeleteTask_clicked()
     QMessageBox *information = new QMessageBox("Attention!", "Do you want to delete this Task and all of its sub-Tasks? This process cannot be reversed. They will be gone, forever!", QMessageBox::Warning, QMessageBox::Ok, QMessageBox::No, QMessageBox::NoButton, this);
     information->exec();
     if(information->result() == QMessageBox::Ok){
-        deleteCurrentTask();
-        updateWindow();
+        if(!deleteCurrentTask()){
+            updateWindow();
+        }
     }
-    delete(information);
+    delete information;
 }

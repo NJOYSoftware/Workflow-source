@@ -17,11 +17,14 @@ private:
   std::vector<Task*> children;
   Task* Master;
   bool Completed;
+  ChildText *childTitle;
 
 public:
 
   explicit Task(Task* newMaster = Q_NULLPTR);
   explicit Task(qint32 newid, QString newTitle, QString newText, Task* newMaster);
+  ~Task();
+
 
   void setId(qint32 newId);
   qint32 getId();

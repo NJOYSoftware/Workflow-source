@@ -14,16 +14,14 @@ Task* TaskGraphicsScene::getTaskShown(){
 }
 
 void TaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *btnReleased){
-  if(btnReleased->button() == Qt::LeftButton){
-      if(taskShown != Q_NULLPTR){
+  if(taskShown != Q_NULLPTR && btnReleased->button() == Qt::LeftButton){
         *currentPointer = taskShown;
         emit changeTask();
-      }
-    }
+  }
 }
 
 void TaskGraphicsScene::drawTaskShown(){
-    if(taskShown){
+    if(taskShown != Q_NULLPTR){
         taskShown->drawAsChild(this);
     }
 }

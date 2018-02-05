@@ -9,8 +9,7 @@
 using namespace std;
 
 qint32 FileManager::QCharToHexa(QChar newChar){
-    qint32 hexanumber;
-    hexanumber = 0;
+    qint32 hexanumber = 0;
     char tempChar = newChar.toUpper().toLatin1();
     switch(tempChar){
         case 'A': hexanumber = 10; break;

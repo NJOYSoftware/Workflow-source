@@ -61,3 +61,4 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 RESOURCES += \
     resources.qrc
+

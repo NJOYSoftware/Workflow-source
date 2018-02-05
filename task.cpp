@@ -22,6 +22,11 @@ Task::Task(Task* newMaster)
 {
   setCompleted(false);
   setMaster(newMaster);
+  childTitle = new ChildText();
+}
+
+Task::~Task(){
+    delete childTitle;
 }
 
 qint32 Task::getId(){
@@ -85,9 +90,12 @@ Task* Task::addChild(qint32 nextId, Task* newMaster){
   if(addChildWindow->exec() == taskWindow::Accepted){
       this->setCompleted(false);
       children.push_back(newChild);
+      delete addChildWindow;
       return newChild;
   }
   else{
+      delete newChild;
+      delete addChildWindow;
       return Q_NULLPTR;
   }
 
@@ -101,12 +109,11 @@ void Task::drawAsChild(QGraphicsScene* childScene){
   childScene->addRect(OUTER_CHILD_X_START, OUTER_CHILD_Y_START, OUTER_CHILD_WIDTH, OUTER_CHILD_HEIGHT, QPen(Qt::black), (Completed ? QBrush(Qt::green) : QBrush(Qt::red)));
   childScene->addRect(INNER_CHILD_X_START, INNER_CHILD_Y_START, INNER_CHILD_WIDTH, INNER_CHILD_HEIGHT, QPen(Qt::black), QBrush(Qt::gray));
 
-  ChildText* TitleText = new ChildText();
-  TitleText->setText(Title);
-  TitleText->setFont(QFont("Ubuntu", 16, 50));
-  childScene->addItem(TitleText);
+  childTitle->setText(Title);
+  childTitle->setFont(QFont("Ubuntu", 16, 50));
+  childScene->addItem(childTitle);
 
-  TitleText->setPos((OUTER_CHILD_WIDTH - TitleText->boundingRect().width())/2, (OUTER_CHILD_HEIGHT - TitleText->boundingRect().height())/2);
+  childTitle->setPos((OUTER_CHILD_WIDTH - childTitle->boundingRect().width())/2, (OUTER_CHILD_HEIGHT - childTitle->boundingRect().height())/2);
 }
 
 void Task::drawAsCurrent(QGraphicsScene* currentScene){
@@ -121,9 +128,12 @@ Task* Task::addMaster(qint32 nextId){
   if(addMasterWindow->exec()){
     this->setMaster(newMaster);
     newMaster->children.push_back(this);
+    delete addMasterWindow;
     return newMaster;
   }
   else{
+      delete newMaster;
+      delete addMasterWindow;
       return Q_NULLPTR;
   }
 }
