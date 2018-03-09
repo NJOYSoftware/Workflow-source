@@ -8,8 +8,8 @@
 
 using namespace std;
 
-qint32 FileManager::QCharToHexa(QChar newChar){
-    qint32 hexanumber = 0;
+quint32 FileManager::QCharToHexa(QChar newChar){
+    quint32 hexanumber = 0;
     char tempChar = newChar.toUpper().toLatin1();
     switch(tempChar){
         case 'A': hexanumber = 10; break;
@@ -23,22 +23,22 @@ qint32 FileManager::QCharToHexa(QChar newChar){
     return hexanumber;
 }
 
-qint32 FileManager::QCharToInt(QChar array[], qint32 offset){
-    qint32 Number = 0;
-    for(int i = 0; i < offset; i++){
+quint32 FileManager::QCharToInt(QChar *array, quint32 offset){
+    quint32 Number = 0;
+    for(unsigned int i = 0; i < offset; i++){
         Number += FileManager::QCharToHexa(array[i])*pow(16, offset - i - 1);
     }
     return Number;
 }
 
-QChar *FileManager::NumberToQChar(qint32 Number){
+QChar *FileManager::NumberToQChar(quint32 Number){
     static QChar array[NUM_OFFSET];
     for(int i = 0; i < NUM_OFFSET; i++){
         array[i] = '0';
     }
     if(Number != 0){
-        qint32 numOrder = log2(Number)/log2(16);
-        qint32 remainder = 0;
+        quint32 numOrder = log2(Number)/log2(16);
+        quint32 remainder = 0;
         for(int i = numOrder; i >= 0; i--, Number /= 16){
             remainder = Number % 16;
             switch(remainder){
@@ -61,8 +61,8 @@ QChar *FileManager::CharToQChar(char Char){
         array[i] = '0';
     }
     if(Char != 0){
-        qint32 numOrder = log2(Char)/log2(16);
-        qint32 remainder = 0;
+        quint32 numOrder = log2(Char)/log2(16);
+        quint32 remainder = 0;
         for(int i = numOrder; i >= 0; i--, Char /= 16){
             remainder = Char % 16;
             switch(remainder){

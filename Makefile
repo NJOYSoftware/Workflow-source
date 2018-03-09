@@ -57,7 +57,6 @@ SOURCES       = main.cpp \
 		task.cpp \
 		taskwindow.cpp \
 		taskgraphicsscene.cpp \
-		childtext.cpp \
 		wikiwindow.cpp \
 		searchdialog.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
@@ -72,7 +71,6 @@ OBJECTS       = main.o \
 		task.o \
 		taskwindow.o \
 		taskgraphicsscene.o \
-		childtext.o \
 		wikiwindow.o \
 		searchdialog.o \
 		qrc_resources.o \
@@ -268,7 +266,6 @@ DIST          = ../../QT/5.9.3/gcc_64/mkspecs/features/spec_pre.prf \
 		task.hpp \
 		taskwindow.hpp \
 		taskgraphicsscene.hpp \
-		childtext.hpp \
 		wikiwindow.hpp \
 		searchdialog.hpp main.cpp \
 		mainwindow.cpp \
@@ -277,7 +274,6 @@ DIST          = ../../QT/5.9.3/gcc_64/mkspecs/features/spec_pre.prf \
 		task.cpp \
 		taskwindow.cpp \
 		taskgraphicsscene.cpp \
-		childtext.cpp \
 		wikiwindow.cpp \
 		searchdialog.cpp
 QMAKE_TARGET  = Workflow
@@ -680,8 +676,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../QT/5.9.3/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.hpp project.hpp filemanager.hpp task.hpp taskwindow.hpp taskgraphicsscene.hpp childtext.hpp wikiwindow.hpp searchdialog.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp project.cpp filemanager.cpp task.cpp taskwindow.cpp taskgraphicsscene.cpp childtext.cpp wikiwindow.cpp searchdialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.hpp project.hpp filemanager.hpp task.hpp taskwindow.hpp taskgraphicsscene.hpp wikiwindow.hpp searchdialog.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp project.cpp filemanager.cpp task.cpp taskwindow.cpp taskgraphicsscene.cpp wikiwindow.cpp searchdialog.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui taskwindow.ui wikiwindow.ui searchdialog.ui $(DISTDIR)/
 
 
@@ -833,9 +829,6 @@ moc_mainwindow.cpp: ../../QT/5.9.3/gcc_64/include/QtWidgets/QMainWindow \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		mainwindow.hpp \
@@ -954,9 +947,6 @@ moc_taskwindow.cpp: ../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		taskwindow.hpp \
 		project.hpp \
 		mainwindow.hpp \
@@ -1060,15 +1050,6 @@ moc_taskgraphicsscene.cpp: ../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScen
 		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
 		task.hpp \
 		../../QT/5.9.3/gcc_64/include/QtCore/QString \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
@@ -1079,6 +1060,12 @@ moc_taskgraphicsscene.cpp: ../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScen
 		../../QT/5.9.3/gcc_64/include/QtGui/qcursor.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qkeysequence.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qevent.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurl.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurlquery.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qfile.h \
@@ -1310,9 +1297,6 @@ moc_searchdialog.cpp: ../../QT/5.9.3/gcc_64/include/QtWidgets/QDialog \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		project.hpp \
@@ -1470,9 +1454,6 @@ main.o: main.cpp mainwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QDialog \
@@ -1605,9 +1586,6 @@ mainwindow.o: mainwindow.cpp mainwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QDialog \
@@ -1616,6 +1594,56 @@ mainwindow.o: mainwindow.cpp mainwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
 		ui_mainwindow.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/QVariant \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QAction \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qaction.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QApplication \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qeventloop.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QButtonGroup \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QFrame \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qframe.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsView \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qpainter.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QHeaderView \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qheaderview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qvalidator.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qregularexpression.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyle.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtabbar.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qrubberband.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QLabel \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qlabel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QMenu \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qmenu.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QMenuBar \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qmenubar.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QPushButton \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QTextEdit \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtextedit.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextdocument.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextformat.h \
 		wikiwindow.hpp \
 		searchdialog.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QMessageBox \
@@ -1623,10 +1651,6 @@ mainwindow.o: mainwindow.cpp mainwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QInputDialog \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qinputdialog.h \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qlineedit.h \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qframe.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qtextcursor.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qtextformat.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qtextoption.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/QDesktopServices \
 		../../QT/5.9.3/gcc_64/include/QtGui/qdesktopservices.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qstandardpaths.h \
@@ -1720,16 +1744,6 @@ project.o: project.cpp project.hpp \
 		../../QT/5.9.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qfont.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
@@ -1740,6 +1754,13 @@ project.o: project.cpp project.hpp \
 		../../QT/5.9.3/gcc_64/include/QtGui/qcursor.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qkeysequence.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qevent.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurl.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurlquery.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qfile.h \
@@ -1886,16 +1907,6 @@ task.o: task.cpp task.hpp \
 		../../QT/5.9.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qfont.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
@@ -1906,6 +1917,13 @@ task.o: task.cpp task.hpp \
 		../../QT/5.9.3/gcc_64/include/QtGui/qcursor.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qkeysequence.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qevent.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurl.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurlquery.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qfile.h \
@@ -2031,9 +2049,6 @@ taskwindow.o: taskwindow.cpp taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		project.hpp \
 		mainwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QMainWindow \
@@ -2045,7 +2060,50 @@ taskwindow.o: taskwindow.cpp taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QDialog \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qdialog.h \
-		ui_taskwindow.h
+		ui_taskwindow.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/QVariant \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QAction \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qaction.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QApplication \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qeventloop.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QButtonGroup \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QDialogButtonBox \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QFrame \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qframe.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QHeaderView \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qheaderview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qvalidator.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qregularexpression.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyle.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtabbar.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qrubberband.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QLabel \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qlabel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QLineEdit \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qlineedit.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextformat.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QTextEdit \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtextedit.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextdocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o taskwindow.o taskwindow.cpp
 
 taskgraphicsscene.o: taskgraphicsscene.cpp taskgraphicsscene.hpp \
@@ -2135,15 +2193,6 @@ taskgraphicsscene.o: taskgraphicsscene.cpp taskgraphicsscene.hpp \
 		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
 		task.hpp \
 		../../QT/5.9.3/gcc_64/include/QtCore/QString \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
@@ -2154,6 +2203,12 @@ taskgraphicsscene.o: taskgraphicsscene.cpp taskgraphicsscene.hpp \
 		../../QT/5.9.3/gcc_64/include/QtGui/qcursor.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qkeysequence.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qevent.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurl.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qurlquery.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/qfile.h \
@@ -2169,94 +2224,6 @@ taskgraphicsscene.o: taskgraphicsscene.cpp taskgraphicsscene.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QDialog \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o taskgraphicsscene.o taskgraphicsscene.cpp
-
-childtext.o: childtext.cpp childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qtguiglobal.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qglobal.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qconfig.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtcore-config.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qsystemdetection.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qprocessordetection.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcompilerdetection.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtypeinfo.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qsysinfo.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlogging.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qflags.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qatomic.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qbasicatomic.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qgenericatomic.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qatomic_cxx11.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qatomic_msvc.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qglobalstatic.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmutex.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qnumeric.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qversiontagging.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qtgui-config.h \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qobject.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qobjectdefs.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qnamespace.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qstring.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qchar.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qbytearray.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qrefcount.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qarraydata.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qstringbuilder.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlist.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qalgorithms.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qiterator.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qhashfunctions.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qpair.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qbytearraylist.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qstringlist.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qregexp.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qstringmatcher.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcoreevent.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qscopedpointer.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmetatype.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvarlengtharray.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcontainerfwd.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qobject_impl.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvariant.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmap.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qdebug.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qhash.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qtextstream.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qiodevice.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qlocale.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qshareddata.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qvector.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qpoint.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qset.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qcontiguouscache.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qsharedpointer.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qrect.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qmargins.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qsize.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qpainterpath.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qmatrix.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qpolygon.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qregion.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qwindowdefs.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qwindowdefs_win.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qdatastream.h \
-		../../QT/5.9.3/gcc_64/include/QtCore/qline.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qpixmap.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qpaintdevice.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qcolor.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qrgb.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qrgba64.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qimage.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qpixelformat.h \
-		../../QT/5.9.3/gcc_64/include/QtGui/qtransform.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o childtext.o childtext.cpp
 
 wikiwindow.o: wikiwindow.cpp wikiwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
@@ -2360,6 +2327,51 @@ wikiwindow.o: wikiwindow.cpp wikiwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtGui/qvector2d.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qtouchdevice.h \
 		ui_wikiwindow.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/QVariant \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QAction \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qaction.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qicon.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QApplication \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qeventloop.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QButtonGroup \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QHeaderView \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qheaderview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qframe.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qvalidator.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qregularexpression.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyle.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtabbar.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qrubberband.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QLabel \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qlabel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QPushButton \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QTextBrowser \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtextbrowser.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtextedit.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextdocument.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextoption.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextformat.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
 		../../QT/5.9.3/gcc_64/include/QtCore/QUrl
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wikiwindow.o wikiwindow.cpp
 
@@ -2470,9 +2482,6 @@ searchdialog.o: searchdialog.cpp searchdialog.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsScene \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		../../QT/5.9.3/gcc_64/include/QtGui/qpen.h \
-		childtext.hpp \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
-		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		taskwindow.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		project.hpp \
@@ -2484,7 +2493,49 @@ searchdialog.o: searchdialog.cpp searchdialog.hpp \
 		taskgraphicsscene.hpp \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		../../QT/5.9.3/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
-		ui_searchdialog.h
+		ui_searchdialog.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/QVariant \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QAction \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qaction.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QApplication \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qeventloop.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QButtonGroup \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QComboBox \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qcombobox.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qvalidator.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qregularexpression.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qstyle.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qtabbar.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qrubberband.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qframe.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QHeaderView \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qheaderview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../QT/5.9.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QLabel \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qlabel.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QLineEdit \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qlineedit.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextformat.h \
+		../../QT/5.9.3/gcc_64/include/QtGui/qtextoption.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/QPushButton \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../QT/5.9.3/gcc_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o searchdialog.o searchdialog.cpp
 
 qrc_resources.o: qrc_resources.cpp 

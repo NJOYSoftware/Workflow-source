@@ -5,29 +5,27 @@
 #include <QString>
 #include <vector>
 #include <QGraphicsScene>
-#include "childtext.hpp"
 
 class Task
 {
 
 private:
-  qint32 Id;
+  quint32 Id;
   QString Title;
   QString Text;
   std::vector<Task*> children;
   Task* Master;
   bool Completed;
-  ChildText *childTitle;
 
 public:
 
   explicit Task(Task* newMaster = Q_NULLPTR);
-  explicit Task(qint32 newid, QString newTitle, QString newText, Task* newMaster);
+  explicit Task(quint32 newid, QString newTitle, QString newText, Task* newMaster);
   ~Task();
 
 
-  void setId(qint32 newId);
-  qint32 getId();
+  void setId(quint32 newId);
+  quint32 getId();
 
   void setTitle(QString newTitle);
   QString getTitle();
@@ -46,15 +44,15 @@ public:
 
 
   void setCompleted(bool isCompleted);
-  Task *addChild(qint32 nextId, Task *newMaster);
-  Task* addMaster(qint32 nextId);
+  Task *addChild(quint32 nextId, Task *newMaster);
+
+  Task* addMaster(quint32 nextId);
   void addChild(Task* newChild);
 
-  void drawAsChild(QGraphicsScene *childScene);
   void drawAsCurrent(QGraphicsScene* currentScene);
 
-  quint32 searchChild(qint32 id);
-  void deleteChild(qint32 indx);
+  quint32 searchChild(quint32 id);
+  void deleteChild(quint32 indx);
 
 };
 

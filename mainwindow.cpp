@@ -6,6 +6,7 @@
 #include "taskgraphicsscene.hpp"
 #include "wikiwindow.hpp"
 #include "searchdialog.hpp"
+#include "filemanager.hpp"
 
 #include <new>
 #include <iostream>
@@ -21,13 +22,13 @@
 #include <QCloseEvent>
 
 #define CHILDREN_SCENE_COUNT 4
-#define MAX_SIZE 65536
+#define MAX_SIZE pow(16, NUM_OFFSET)
 
 Project currentProj;
 Task* currentTask = Q_NULLPTR;
 TaskGraphicsScene* currentScene;
 TaskGraphicsScene* childrenScenes[CHILDREN_SCENE_COUNT];
-qint32 childrenPage = 0;
+quint32 childrenPage = 0;
 
 MainWindow::MainWindow(QString projString, QWidget *parent) :
     QMainWindow(parent),
@@ -110,24 +111,24 @@ void MainWindow::on_actionNew_Project_triggered(){
         }
         delete information;
     }
-        currentTask = new Task();
-        currentProj.getProjectTasks().clear();
-        QString tempProjTitle = QInputDialog::getText(this, "New Project", "Insert the title for the new project:", QLineEdit::Normal, "Project Title max 30 characters");
-        currentProj.setTitle(tempProjTitle);
+    currentTask = new Task();
+    currentProj.getProjectTasks().clear();
+    QString tempProjTitle = QInputDialog::getText(this, "New Project", "Insert the title for the new project:", QLineEdit::Normal, "Project Title max 30 characters");
+    currentProj.setTitle(tempProjTitle);
 
-        currentTask->setId(0);
-        taskWindow* newTaskWindow = new taskWindow(currentTask);
-        if(tempProjTitle != NULL && newTaskWindow->exec() == taskWindow::Accepted){
-            currentProj.addTaskAsChildren(currentTask);
-            updateWindow();
-            currentProj.setModified(true);
-        }
-        else{
-            QMessageBox errorBox(QMessageBox::Warning, "Error in creating new project", "New project creation aborted!");
-            errorBox.exec();
-            delete currentTask;
-        }
-        delete newTaskWindow;
+    currentTask->setId(0);
+    taskWindow* newTaskWindow = new taskWindow(currentTask);
+    if(tempProjTitle != NULL && newTaskWindow->exec() == taskWindow::Accepted){
+        currentProj.addTaskAsChildren(currentTask);
+        updateWindow();
+        currentProj.setModified(true);
+    }
+    else{
+        QMessageBox errorBox(QMessageBox::Warning, "Error in creating new project", "New project creation aborted!");
+        errorBox.exec();
+        delete currentTask;
+    }
+    delete newTaskWindow;
 }
 
 void MainWindow::on_btnModify_clicked()
@@ -144,7 +145,6 @@ void MainWindow::on_btnComplete_clicked()
         if(currentTask->isCompletable()){
             currentTask->setCompleted(true);
             currentProj.setModified(true);
-            ui->btnComplete->setText("Uncomplete Task");
             updateWindow();
         }
         else{
@@ -155,14 +155,13 @@ void MainWindow::on_btnComplete_clicked()
     else{
         currentTask->setCompleted(false);
         currentProj.setModified(true);
-        ui->btnComplete->setText("Complete Task");
+
         updateWindow();
     }
-
 }
 
 static qint32 firstFreeID(){
-    qint32 id = 0;
+    quint32 id = 0;
     while(currentProj.searchById(id) != NULL){
         id++;
     }
@@ -176,8 +175,12 @@ void MainWindow::on_btnAddChild_clicked()
         if(child != Q_NULLPTR){
             currentProj.addTaskAsChildren(child);
             currentProj.setModified(true);
+            updateWindow();
         }
-        updateWindow();
+        else{
+            QMessageBox errorChildCreation(QMessageBox::Warning, "Error: The sub-task cannot be created!", "The creation of the sub-task encountered an error, please try again. If the problem subsist report it.");
+            errorChildCreation.exec();
+        }
     }
     else{
         QMessageBox errorMaxSize(QMessageBox::Warning, "Error: Max size reached!", "Your project reached the maximum size allowed. You can no longer create new Tasks.");
@@ -192,9 +195,7 @@ void MainWindow::on_taskChanged(){
 
 void MainWindow::on_btnPrevTask_clicked()
 {
-    if(currentTask->getMaster() != Q_NULLPTR){
-        currentTask = currentTask->getMaster();
-    }
+    currentTask = currentTask->getMaster();
     childrenPage = 0;
     updateWindow();
 }
@@ -227,12 +228,16 @@ void MainWindow::enableCurrentButtons(){
       ui->btnNextPage->setDisabled(true);
   }
 
-  if(childrenPage > 0){
-      ui->btnPreviousPage->setEnabled(true);
+  ui->btnPreviousPage->setEnabled(childrenPage > 0);
+
+  if(currentTask->isCompleted()){
+    ui->btnComplete->setText("Uncomplete Task");
   }
   else{
-      ui->btnPreviousPage->setDisabled(true);
+    ui->btnComplete->setText("Complete Task");
   }
+
+  ui->btnPrevTask->setEnabled(currentTask->getMaster() != Q_NULLPTR);
 }
 
 void MainWindow::clearAllScenes(){
@@ -272,6 +277,10 @@ void MainWindow::on_btnNewMaster_clicked()
                 currentProj.setModified(true);
                 childrenPage = 0;
                 updateWindow();
+            }
+            else{
+                QMessageBox errorChildCreation(QMessageBox::Warning, "Error: The sub-task cannot be created!", "The creation of the sub-task encountered an error, please try again. If the problem subsist report it.");
+                errorChildCreation.exec();
             }
         }
         else{
@@ -346,7 +355,7 @@ void MainWindow::on_btnPreviousPage_clicked()
 
 void MainWindow::on_btnNextPage_clicked()
 {
-  qint32 condition = ceil(currentTask->getChildren().size()/CHILDREN_SCENE_COUNT);
+  quint32 condition = ceil(currentTask->getChildren().size()/CHILDREN_SCENE_COUNT);
   if(childrenPage < condition){
       childrenPage++;
   }
@@ -355,7 +364,7 @@ void MainWindow::on_btnNextPage_clicked()
 
 void MainWindow::updatePageLabel(){
     QString label = "Page: ";
-    qint32 pageNumber;
+    quint32 pageNumber;
     QString firstNumber;
     QString secondNumber;
 

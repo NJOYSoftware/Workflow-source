@@ -68,7 +68,7 @@ void Project::saveProject(QString currentSavePath){
         }
         for (unsigned i = projectTitle.size(); i < MAX_PROJ_TITLE_LENGTH; i++){
           //NULL writer
-            for(int i = 0; i < CHAR_OFFSET; i++){
+            for(unsigned int j = 0; j < CHAR_OFFSET; j++){
                 writeOnFile << 0;
             }
         }
@@ -130,10 +130,11 @@ bool Project::loadProject(QString projString){
         projString = QFileDialog::getOpenFileName(nullptr, QString("Open Project File"), QString(""), QString("Workflow Project(*.wfp)"));
     }
     QFile filePath(projString);
+    savePath = projString;
 
     QString tempString = "";
     QString fileString;
-    qint32 tempNumber = 0;
+    quint32 tempNumber = 0;
 
     Task* masterTask;
 
@@ -159,7 +160,7 @@ bool Project::loadProject(QString projString){
             Task* tempTask = new Task();
             QChar tempIDArray[NUM_OFFSET];
             for(int i = 0; i < NUM_OFFSET; i++){
-                tempIDArray[i] = fileString.at(fileIterator + i);
+                tempIDArray[NUM_OFFSET - i - 1] = fileString.at(fileIterator + i).toUpper();
             }
             tempNumber = FileManager::QCharToInt(tempIDArray, NUM_OFFSET);
             tempTask->setId(tempNumber);
@@ -234,7 +235,7 @@ void Project::addTaskAsMaster(Task *newTask){
   projectTasks.push_front(newTask);
 }
 
-Task* Project::searchById(qint32 Id){
+Task* Project::searchById(quint32 Id){
     Task* tempTask;
     for(unsigned int i = 0; i < projectTasks.size(); i++){
         tempTask = projectTasks[i];
@@ -245,7 +246,7 @@ Task* Project::searchById(qint32 Id){
     return Q_NULLPTR;
 }
 
-quint32 Project::taskIndexByID(qint32 id){
+quint32 Project::taskIndexByID(quint32 id){
     quint32 indx = 0;
     while(projectTasks[indx]->getId() != id && indx < projectTasks.size()){
         indx++;
@@ -253,6 +254,6 @@ quint32 Project::taskIndexByID(qint32 id){
     return indx;
 }
 
-void Project::deleteTask(qint32 indx){
+void Project::deleteTask(quint32 indx){
     projectTasks.erase(projectTasks.begin() + indx);
 }

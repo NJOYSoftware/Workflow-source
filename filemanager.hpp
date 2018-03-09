@@ -4,19 +4,17 @@
 #include <cstdint>
 #include <QString>
 
+//Changing this number will modify the range of possible task-ids
 #define NUM_OFFSET 4
+
 #define CHAR_OFFSET 2
 
 namespace FileManager
 {
-    qint32 BinaryToInt(int array[]);
+    quint32 QCharToHexa(QChar newChar);
+    quint32 QCharToInt(QChar *array, quint32 offset);
 
-    int* IntToBinary(qint32 Number);
-
-    qint32 QCharToHexa(QChar newChar);
-    qint32 QCharToInt(QChar array[], qint32 offset);
-
-    QChar *NumberToQChar(qint32 Number);
+    QChar *NumberToQChar(quint32 Number);
     QChar *CharToQChar(char Char);
 }
 

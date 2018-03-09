@@ -26,16 +26,17 @@ public:
     bool getModified();
 
     bool loadProject(QString projString = "");
-    //Debug for new feature
-    //bool loadProjectFromFile(QString openFilePath);
     void saveProject(QString currentSavePath = "");
 
     void addTaskAsChildren(Task *newTask);
     void addTaskAsMaster(Task *newTask);
+
     std::deque<Task *> getProjectTasks();
-    Task* searchById(qint32 Id);
-    quint32 taskIndexByID(qint32 id);
-    void deleteTask(qint32 indx);
+
+    Task* searchById(quint32 Id);
+    quint32 taskIndexByID(quint32 id);
+
+    void deleteTask(quint32 indx);
 };
 
 #endif // PROJECT_HPP

@@ -9,31 +9,20 @@
 #define INNER_CURRENT_WIDTH 300
 #define INNER_CURRENT_HEIGHT 156
 
-#define OUTER_CHILD_X_START 0
-#define OUTER_CHILD_Y_START 0
-#define OUTER_CHILD_WIDTH 240
-#define OUTER_CHILD_HEIGHT 144
-#define INNER_CHILD_X_START 15
-#define INNER_CHILD_Y_START 15
-#define INNER_CHILD_WIDTH 210
-#define INNER_CHILD_HEIGHT 114
-
 Task::Task(Task* newMaster)
 {
   setCompleted(false);
   setMaster(newMaster);
-  childTitle = new ChildText();
 }
 
 Task::~Task(){
-    delete childTitle;
 }
 
-qint32 Task::getId(){
+quint32 Task::getId(){
   return Id;
 }
 
-void Task::setId(qint32 newId){
+void Task::setId(quint32 newId){
   Id = newId;
 }
 
@@ -83,7 +72,7 @@ void Task::setCompleted(bool isCompleted){
   Completed = isCompleted;
 }
 
-Task* Task::addChild(qint32 nextId, Task* newMaster){
+Task* Task::addChild(quint32 nextId, Task* newMaster){
   Task* newChild = new Task(newMaster);
   newChild->setId(nextId);
   taskWindow* addChildWindow = new taskWindow(newChild);
@@ -105,23 +94,12 @@ void Task::addChild(Task *newChild){
   children.push_back(newChild);
 }
 
-void Task::drawAsChild(QGraphicsScene* childScene){
-  childScene->addRect(OUTER_CHILD_X_START, OUTER_CHILD_Y_START, OUTER_CHILD_WIDTH, OUTER_CHILD_HEIGHT, QPen(Qt::black), (Completed ? QBrush(Qt::green) : QBrush(Qt::red)));
-  childScene->addRect(INNER_CHILD_X_START, INNER_CHILD_Y_START, INNER_CHILD_WIDTH, INNER_CHILD_HEIGHT, QPen(Qt::black), QBrush(Qt::gray));
-
-  childTitle->setText(Title);
-  childTitle->setFont(QFont("Ubuntu", 16, 50));
-  childScene->addItem(childTitle);
-
-  childTitle->setPos((OUTER_CHILD_WIDTH - childTitle->boundingRect().width())/2, (OUTER_CHILD_HEIGHT - childTitle->boundingRect().height())/2);
-}
-
 void Task::drawAsCurrent(QGraphicsScene* currentScene){
     currentScene->addRect(OUTER_CURRENT_X_START, OUTER_CURRENT_Y_START, OUTER_CURRENT_WIDTH, OUTER_CURRENT_HEIGHT, QPen(Qt::black), (Completed ? QBrush(Qt::green) : QBrush(Qt::red)) );
     currentScene->addRect(INNER_CURRENT_X_START, INNER_CURRENT_Y_START, INNER_CURRENT_WIDTH, INNER_CURRENT_HEIGHT, QPen(Qt::black), QBrush(Qt::gray));
 }
 
-Task* Task::addMaster(qint32 nextId){
+Task* Task::addMaster(quint32 nextId){
   Task* newMaster = new Task();
   newMaster->setId(nextId);
   taskWindow* addMasterWindow = new taskWindow(newMaster);
@@ -138,7 +116,7 @@ Task* Task::addMaster(qint32 nextId){
   }
 }
 
-quint32 Task::searchChild(qint32 id){
+quint32 Task::searchChild(quint32 id){
     quint32 indx = 0;
     while(children[indx]->getId() != id && indx < children.size()){
         indx++;
@@ -146,6 +124,6 @@ quint32 Task::searchChild(qint32 id){
     return indx;
 }
 
-void Task::deleteChild(qint32 indx){
+void Task::deleteChild(quint32 indx){
     children.erase(children.begin() + indx);
 }

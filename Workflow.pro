@@ -31,7 +31,6 @@ SOURCES += \
     task.cpp \
     taskwindow.cpp \
     taskgraphicsscene.cpp \
-    childtext.cpp \
     wikiwindow.cpp \
     searchdialog.cpp
 
@@ -42,7 +41,6 @@ HEADERS += \
     task.hpp \
     taskwindow.hpp \
     taskgraphicsscene.hpp \
-    childtext.hpp \
     wikiwindow.hpp \
     searchdialog.hpp
 

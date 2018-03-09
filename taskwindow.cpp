@@ -41,7 +41,7 @@ void taskWindow::on_tedTaskText_textChanged()
 {
   if(ui->tedTaskText->toPlainText().length() > MAXLENGTH){
       QString text = ui->tedTaskText->toPlainText();
-      qint32 difference = text.length() - MAXLENGTH;
+      quint32 difference = text.length() - MAXLENGTH;
       text.chop(difference);
       ui->tedTaskText->setText(text);
       QTextCursor cursor = ui->tedTaskText->textCursor();

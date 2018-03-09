@@ -15,6 +15,7 @@ class TaskGraphicsScene : public QGraphicsScene
 private:
   Task* taskShown;
   Task** currentPointer;
+  QGraphicsSimpleTextItem *childTitle;
 
 public:
   explicit TaskGraphicsScene(Task **currentTask, QObject* parent = 0);

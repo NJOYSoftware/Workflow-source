@@ -26,10 +26,6 @@ public:
     void updatePageLabel();
     void closeEvent(QCloseEvent *event);
 
-    //debug new feature
-    //void openFile();
-    //QString openFilePath = "";
-
 private slots:
 
     void on_actionLoad_triggered();
